@@ -31,6 +31,8 @@ android {
 }
 
 dependencies {
+    implementation files('libs/realmadapter4.0.0.jar')
+
 
     implementation libs.appcompat
     implementation libs.material
