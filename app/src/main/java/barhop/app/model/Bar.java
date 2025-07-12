@@ -26,7 +26,7 @@ public class Bar extends RealmObject {
     public String getDescription(){ return description;}
     public void setDescription(String description){ this.description = description;}
 
-    // Relationship handling of Likes, Comments, [Bookings???] //
+    // Relationship handling of Likes, Comments, [Bookings, Tables???] //
 
     // LIKES
         @LinkingObjects("bar")
@@ -38,4 +38,8 @@ public class Bar extends RealmObject {
         private final RealmResults<Comment> comments = null;
         public RealmResults<Comment> getComments() { return comments; }
 
+    // TABLES
+        @LinkingObjects("bar")
+        private final RealmResults<Table> tables = null;
+        public RealmResults<Table> getTables() { return tables; }
 }
