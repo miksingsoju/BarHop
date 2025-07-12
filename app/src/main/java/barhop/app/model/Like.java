@@ -22,5 +22,4 @@ public class Like extends RealmObject {
     public String getUserUUID(){return userUUID; }
     public Bar getBar(){ return bar;}
     public void setBar(Bar bar){ this.bar = bar;}
-
 }

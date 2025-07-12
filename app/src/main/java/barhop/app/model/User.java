@@ -60,6 +60,10 @@ public class User extends RealmObject {
         private final RealmResults<Like> likes = null;
         public RealmResults<Like> getLikes() { return likes; }
 
+    // BOOKING
+
+    // FRIENDS ?
+
 
 
 
