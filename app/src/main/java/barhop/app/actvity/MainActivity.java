@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     Realm realm;
 
-    Button loginButton;
+    Button loginButton, createBarButton, favoriteBarsButton;
     TextView mainText;
 
 
@@ -50,10 +50,14 @@ public class MainActivity extends AppCompatActivity {
         realm = Realm.getDefaultInstance();
 
         loginButton = findViewById(R.id.loginButton);
+        createBarButton = findViewById(R.id.createBarButton);
+        favoriteBarsButton = findViewById(R.id.favouriteBarsButton);
+
         mainText = findViewById(R.id.mainText);
 
         loginButton.setOnClickListener(view -> login());
 
+        initLoggedOut();
     }
 
     /**
@@ -74,8 +78,41 @@ public class MainActivity extends AppCompatActivity {
             if (user != null) {
                 mainText.setText("Welcome, " + user.getDisplayName() + "!");
                 loginButton.setVisibility(View.GONE); // hide login button
+
+                if(user.isAdmin()){
+                    initAdminView();
+                } else {
+                    initUserView();
+                }
             }
         }
+    }
+
+    /**
+     * This helper method is for initializing the view when a user has not signed in yet or logged out.
+     * IT ONLY MANAGES VISIBILITY!
+     */
+    private void initLoggedOut(){
+        createBarButton.setVisibility(View.GONE);
+        favoriteBarsButton.setVisibility(View.GONE);
+    }
+
+    /**
+     * This helper method is for initializing the views (buttons, etc.) that should be visible to admins
+     */
+    private void initAdminView(){
+        createBarButton.setVisibility(View.VISIBLE);
+
+    }
+
+    /**
+     * This helper method is for initializing the views (buttons, etc.) that should be visible to normal users.
+     * and hiding views that shouldnt be accessible to normal users.
+     */
+    private void initUserView(){
+        createBarButton.setVisibility(View.VISIBLE);
+        favoriteBarsButton.setVisibility(View.VISIBLE);
+
     }
 
 

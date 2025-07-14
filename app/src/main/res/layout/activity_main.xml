@@ -22,11 +22,40 @@
         android:id="@+id/mainText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="108dp"
+        android:layout_marginBottom="424dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/createBarButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="68dp"
+        android:text="Create Bar"
+        app:layout_constraintBottom_toBottomOf="@+id/barListButton"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/favouriteBarsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Favourite Bars"
+        app:layout_constraintBottom_toBottomOf="@+id/barListButton"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/barListButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Bar List"
+        app:layout_constraintBottom_toBottomOf="@+id/loginButton"
+        app:layout_constraintEnd_toStartOf="@+id/loginButton"
+        app:layout_constraintStart_toEndOf="@+id/favouriteBarsButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
