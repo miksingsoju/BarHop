@@ -42,8 +42,6 @@ public class UserRegistration extends AppCompatActivity {
 
     Realm realm;
 
-    private ImageView userPhoto;
-
     User newUser;
 
     public void initViews(){
@@ -103,7 +101,6 @@ public class UserRegistration extends AppCompatActivity {
 
             long count = realm.where(User.class).equalTo("isAdmin", false).count();
 
-            // TODO: REMOVE THIS IN THE FINAL VERSION. THIS IS FOR TESTING.
             Toast.makeText(this, "Bar Hoppers saved: " + count, Toast.LENGTH_LONG).show();
             finish();
         } catch (Exception e) {

@@ -13,6 +13,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 import android.content.Intent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -48,8 +49,6 @@ public class Login extends AppCompatActivity {
     SharedPreferences rememberedUser;
     CheckBox rememberCheckBox;
 
-
-
     /**
      * This method initializes the views needed.
      */
@@ -58,12 +57,15 @@ public class Login extends AppCompatActivity {
 
         adminRegisterButton = findViewById(R.id.adminRegisterButton);
         userRegisterButton = findViewById(R.id.userRegisterButton);
+        loginButton = findViewById(R.id.loginButton);
+
         userInput = findViewById(R.id.userInput);
         passwordInput = findViewById(R.id.passwordInput);
         rememberCheckBox = findViewById(R.id.rememberCheckBox);
 
         adminRegisterButton.setOnClickListener(view -> register("ADMIN"));
         userRegisterButton.setOnClickListener(view -> register("USER"));
+        loginButton.setOnClickListener(view -> login());
 
         users = realm.where(User.class).findAll();
 
@@ -88,7 +90,7 @@ public class Login extends AppCompatActivity {
         String password = passwordInput.getText().toString();
 
         // QUERY: Look for a user with matching name
-        User result = realm.where(User.class).equalTo("name", username).findFirst();
+        User result = realm.where(User.class).equalTo("displayName", username).findFirst();
 
         if (result != null) {
             if (result.getPassword().equals(password)) {
@@ -113,7 +115,6 @@ public class Login extends AppCompatActivity {
                 String userUuid = result.getUuid(); // Add this line
 
                 Intent intent = new Intent(this, MainActivity.class);
-                intent.putExtra("username", username);
                 intent.putExtra("uuid", userUuid);
 
                 startActivity(intent);
