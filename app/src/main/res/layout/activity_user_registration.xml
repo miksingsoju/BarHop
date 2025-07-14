@@ -5,19 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Register">
-
-    <ImageView
-        android:id="@+id/userPhoto"
-        android:layout_width="140dp"
-        android:layout_height="117dp"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/registerLabel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.549"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/haitus"
-        app:srcCompat="@drawable/ic_launcher_background" />
+    tools:context=".actvity.UserRegistration">
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/userInput"
@@ -29,13 +17,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.442" />
+        app:layout_constraintVertical_bias="0.244" />
+
+    <TextView
+        android:id="@+id/confirmPasswordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:text="Confirm Password"
+        app:layout_constraintEnd_toEndOf="@+id/userLabel"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/userInput"
+        app:layout_constraintTop_toBottomOf="@+id/userInput" />
 
     <TextView
         android:id="@+id/passwordLabel2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text="Password"
         app:layout_constraintEnd_toEndOf="@+id/userLabel"
         app:layout_constraintHorizontal_bias="1.0"
@@ -46,7 +45,7 @@
         android:id="@+id/confirmPasswordInput"
         android:layout_width="308dp"
         android:layout_height="49dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="116dp"
         android:ems="10"
         android:hint="Confirm Password"
         android:inputType="textPassword"
@@ -56,28 +55,37 @@
         app:layout_constraintTop_toBottomOf="@+id/passwordLabel2" />
 
     <TextView
-        android:id="@+id/confirmPasswordLabel"
+        android:id="@+id/userLabel2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
-        android:text="Confirm Password"
-        app:layout_constraintEnd_toEndOf="@+id/userLabel"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/userInput"
-        app:layout_constraintTop_toBottomOf="@+id/userInput" />
+        android:layout_marginBottom="12dp"
+        android:text="Username"
+        app:layout_constraintBottom_toTopOf="@+id/userInput"
+        app:layout_constraintStart_toStartOf="@+id/userInput" />
 
-    <EditText
-        android:id="@+id/passwordInput"
-        android:layout_width="308dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="4dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/userInput"
-        app:layout_constraintHorizontal_bias="0.0"
+    <TextView
+        android:id="@+id/registerLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Register as Bar Hopper"
+        app:layout_constraintBottom_toTopOf="@+id/userInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.469"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.547" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="28dp"
+        android:text="Cancel"
+        app:layout_constraintEnd_toEndOf="@+id/confirmPasswordInput"
+        app:layout_constraintHorizontal_bias="0.76"
         app:layout_constraintStart_toStartOf="@+id/userLabel2"
-        app:layout_constraintTop_toBottomOf="@+id/passwordLabel2" />
+        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordInput" />
 
     <Button
         android:id="@+id/saveButton"
@@ -87,41 +95,21 @@
         android:layout_marginTop="28dp"
         android:text="Save"
         app:layout_constraintEnd_toEndOf="@+id/confirmPasswordInput"
-        app:layout_constraintHorizontal_bias="0.431"
+        app:layout_constraintHorizontal_bias="0.267"
         app:layout_constraintStart_toStartOf="@+id/userLabel2"
         app:layout_constraintTop_toBottomOf="@+id/confirmPasswordInput" />
 
-    <TextView
-        android:id="@+id/userLabel2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:text="Username"
-        app:layout_constraintBottom_toTopOf="@+id/userInput"
-        app:layout_constraintStart_toStartOf="@+id/userInput" />
-
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="84dp"
-        android:text="Cancel"
-        app:layout_constraintEnd_toEndOf="@+id/confirmPasswordInput"
-        app:layout_constraintHorizontal_bias="0.435"
+    <EditText
+        android:id="@+id/passwordInput"
+        android:layout_width="308dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/userInput"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/userLabel2"
-        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordInput" />
-
-    <TextView
-        android:id="@+id/registerLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" Register as Bar Hopper"
-        app:layout_constraintBottom_toTopOf="@+id/userInput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.731" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordLabel2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

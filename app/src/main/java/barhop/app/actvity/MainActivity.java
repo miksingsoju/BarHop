@@ -31,33 +31,22 @@ public class MainActivity extends AppCompatActivity {
         init();
     }
 
-    Button adminRegisterButton, userRegisterButton;
+    Button loginButton;
 
     /**
      * This method initializes the views needed.
      */
     public void init(){
-        adminRegisterButton = findViewById(R.id.adminRegisterButton);
-        userRegisterButton = findViewById(R.id.userRegisterButton);
-
-        adminRegisterButton.setOnClickListener(view -> register("ADMIN"));
-        userRegisterButton.setOnClickListener(view -> register("USER"));
+        loginButton = findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(view -> login());
     }
 
     /**
-     * This method takes 2 options, if destination is ADMIN, it will take you to the Admin Registration. If destination is USER,
-     * it will take you to the User Registration
-     * @param destination decides whether it is User or Admin
+     * This takes you to the login screen
      */
-    public void register(String destination) {
-        if (destination.equals("USER")){
-            Intent intent = new Intent(this, UserRegistration.class);
-            startActivity(intent);
-        }
-        else {
-            Intent intent = new Intent(this, AdminRegistration.class);
-            startActivity(intent);
-        }
+    private void login(){
+        Intent intent = new Intent(this, Login.class);
+        startActivity(intent);
     }
 
 
