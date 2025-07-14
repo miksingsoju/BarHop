@@ -17,7 +17,7 @@ public class User extends RealmObject {
 
         @PrimaryKey
         private String uuid = UUID.randomUUID().toString();
-        private String displayName, password, email, displayPicture;
+        private String displayName, password, displayPicture;
         private Date birthDate;
         private Boolean isAdmin;
         public User() {}
@@ -26,8 +26,6 @@ public class User extends RealmObject {
         public void setUuid(String uuid) {this.uuid = uuid;}
         public String getDisplayName() {return displayName;}
         public void setDisplayName(String displayName) {this.displayName = displayName;}
-        public void setEmail(String email){this.email = email;}
-        public String getEmail(){return email;}
         public String getPassword(){ return password;}
         public void setPassword(String password){ this.password = password; }
         public String getDisplayPicture(){return displayPicture;}
