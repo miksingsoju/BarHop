@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void initAdminView(){
         createBarButton.setVisibility(View.VISIBLE);
+        favoriteBarsButton.setVisibility(View.VISIBLE);
 
     }
 
@@ -109,8 +110,9 @@ public class MainActivity extends AppCompatActivity {
      * This helper method is for initializing the views (buttons, etc.) that should be visible to normal users.
      * and hiding views that shouldnt be accessible to normal users.
      */
+
     private void initUserView(){
-        createBarButton.setVisibility(View.VISIBLE);
+        createBarButton.setVisibility(View.GONE);
         favoriteBarsButton.setVisibility(View.VISIBLE);
 
     }
