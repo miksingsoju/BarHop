@@ -2,17 +2,17 @@
         <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/CreateBarLabel"
+    android:id="@+id/userSettingsEditPasswordButton"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".actvity.CreateBar">
 
     <Button
-        android:id="@+id/createBarReturnButton"
+        android:id="@+id/userSettingsReturnButton"
         style="@style/Widget.Material3.Button.IconButton.Filled"
         android:layout_width="83dp"
         android:layout_height="48dp"
-        android:text="<-"
+        android:text="Return"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.043"
@@ -27,10 +27,10 @@
         android:text="Add a Bar"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/createBarReturnButton"
+        app:layout_constraintEnd_toEndOf="@+id/userSettingsReturnButton"
         app:layout_constraintHorizontal_bias="0.008"
-        app:layout_constraintStart_toStartOf="@+id/createBarReturnButton"
-        app:layout_constraintTop_toBottomOf="@+id/createBarReturnButton"
+        app:layout_constraintStart_toStartOf="@+id/userSettingsReturnButton"
+        app:layout_constraintTop_toBottomOf="@+id/userSettingsReturnButton"
         app:layout_constraintVertical_bias="0.028" />
 
     <ImageButton

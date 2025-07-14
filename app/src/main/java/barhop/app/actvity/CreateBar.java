@@ -8,7 +8,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
@@ -32,7 +31,7 @@ public class CreateBar extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_create_bar);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.CreateBarLabel), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.userSettingsEditPasswordButton), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -41,7 +40,7 @@ public class CreateBar extends AppCompatActivity {
     }
 
     public void initViews() {
-        createBarLabel = findViewById(R.id.CreateBarLabel);
+        createBarLabel = findViewById(R.id.createBarLabel);
         createBarPicLabel = findViewById(R.id.createBarPicLabel);
         createBarNameLabel = findViewById(R.id.createBarNameLabel);
         createBarAddressLabel = findViewById(R.id.createBarAddressLabel);
@@ -53,7 +52,7 @@ public class CreateBar extends AppCompatActivity {
 
         createBarImageField = findViewById(R.id.createBarImageField);
 
-        createBarReturnButton = findViewById(R.id.createBarReturnButton);
+        createBarReturnButton = findViewById(R.id.userSettingsReturnButton);
         createBarAddButton = findViewById(R.id.createBarAddButton);
 
         createBarReturnButton.setOnClickListener(v -> ReturnLanding());
