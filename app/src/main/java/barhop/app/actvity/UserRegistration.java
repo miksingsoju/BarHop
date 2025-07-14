@@ -95,15 +95,17 @@ public class UserRegistration extends AppCompatActivity {
 
         newUser.setDisplayName(name);
         newUser.setPassword(password);
+        newUser.setAdmin(false);
 
         try {
             realm.beginTransaction();
             realm.copyToRealmOrUpdate(newUser);
             realm.commitTransaction();
 
-            long count = realm.where(User.class).count();
+            long count = realm.where(User.class).equalTo("isAdmin", false).count();
 
-            Toast.makeText(this, "User saved: " + count, Toast.LENGTH_LONG).show();
+            // TODO: REMOVE THIS IN THE FINAL VERSION. THIS IS FOR TESTING.
+            Toast.makeText(this, "Bar Hoppers saved: " + count, Toast.LENGTH_LONG).show();
             finish();
         } catch (Exception e) {
             Toast.makeText(this, "Error saving user", Toast.LENGTH_LONG).show();

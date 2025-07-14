@@ -95,15 +95,16 @@ public class AdminRegistration extends AppCompatActivity {
 
         newUser.setDisplayName(name);
         newUser.setPassword(password);
+        newUser.setAdmin(true);
 
         try {
             realm.beginTransaction();
             realm.copyToRealmOrUpdate(newUser);
             realm.commitTransaction();
 
-            long count = realm.where(User.class).count();
+            long count = realm.where(User.class).equalTo("isAdmin", true).count();
 
-            Toast.makeText(this, "User saved: " + count, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Bar Owners saved: " + count, Toast.LENGTH_LONG).show();
             finish();
         } catch (Exception e) {
             Toast.makeText(this, "Error saving user", Toast.LENGTH_LONG).show();
