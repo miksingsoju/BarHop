@@ -56,8 +56,11 @@ public class MainActivity extends AppCompatActivity {
         mainText = findViewById(R.id.mainText);
 
         loginButton.setOnClickListener(view -> login());
+        favoriteBarsButton.setOnClickListener(view -> favoriteBars());
+        createBarButton.setOnClickListener(view -> createBar());
 
-        initLoggedOut();
+
+        initLoggedOut(); // THIS MANAGES VISIBILITY
     }
 
     /**
@@ -110,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
      * and hiding views that shouldnt be accessible to normal users.
      */
     private void initUserView(){
-        createBarButton.setVisibility(View.VISIBLE);
+        createBarButton.setVisibility(View.GONE);
         favoriteBarsButton.setVisibility(View.VISIBLE);
 
     }
