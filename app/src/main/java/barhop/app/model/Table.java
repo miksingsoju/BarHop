@@ -50,8 +50,4 @@ public class Table extends RealmObject {
 
     public Bar getBar() { return bar; }
     public void setBar(Bar bar) { this.bar = bar; }
-
-
-
-
 }
