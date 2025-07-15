@@ -14,6 +14,10 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 
 import barhop.app.model.User;
 import io.realm.Realm;
@@ -28,6 +32,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
+
+        bottomNav.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_home) {
+                openHome();
+                return true;
+            } else if (itemId == R.id.nav_bars) {
+                openBars();
+                return true;
+            } else if (itemId == R.id.nav_settings) {
+                openLogin();
+                return true;
+            } else {
+                return false;
+            }
+        });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.rememberCheckBox), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -57,7 +78,11 @@ public class MainActivity extends AppCompatActivity {
 
         loginButton.setOnClickListener(view -> login());
 
+
+
+
         initLoggedOut();
+
     }
 
     /**
@@ -116,6 +141,23 @@ public class MainActivity extends AppCompatActivity {
         favoriteBarsButton.setVisibility(View.VISIBLE);
 
     }
+
+    private void openHome() {
+        Toast.makeText(this, "Home clicked", Toast.LENGTH_SHORT).show();
+        // Optional: navigate to a HomeActivity or update UI
+    }
+
+    private void openBars() {
+        Toast.makeText(this, "Bars clicked", Toast.LENGTH_SHORT).show();
+        // Optional: open bar list screen
+        // startActivity(new Intent(this, BarListActivity.class));
+    }
+
+    private void openLogin() {
+        Intent intent = new Intent(this, Login.class);
+        startActivity(intent);
+    }
+
 
 
 }
