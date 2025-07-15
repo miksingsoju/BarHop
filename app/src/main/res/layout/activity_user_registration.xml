@@ -5,7 +5,7 @@
     android:id="@+id/rememberCheckBox"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".actvity.UserRegistration">
+    tools:context=".activity.UserRegistration">
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/userInput"

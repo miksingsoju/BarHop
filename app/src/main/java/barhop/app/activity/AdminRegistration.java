@@ -1,4 +1,4 @@
-package barhop.app.actvity;
+package barhop.app.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,13 +19,13 @@ import io.realm.Realm;
 
 import barhop.app.model.User;
 
-public class UserRegistration extends AppCompatActivity {
+public class AdminRegistration extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_user_registration);
+        setContentView(R.layout.activity_admin_registration);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.rememberCheckBox), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -41,6 +41,8 @@ public class UserRegistration extends AppCompatActivity {
     Button cancelButton;
 
     Realm realm;
+
+    private ImageView userPhoto;
 
     User newUser;
 
@@ -92,16 +94,16 @@ public class UserRegistration extends AppCompatActivity {
 
         newUser.setDisplayName(name);
         newUser.setPassword(password);
-        newUser.setAdmin(false);
+        newUser.setAdmin(true);
 
         try {
             realm.beginTransaction();
             realm.copyToRealmOrUpdate(newUser);
             realm.commitTransaction();
 
-            long count = realm.where(User.class).equalTo("isAdmin", false).count();
+            long count = realm.where(User.class).equalTo("isAdmin", true).count();
 
-            Toast.makeText(this, "Bar Hoppers saved: " + count, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Bar Owners saved: " + count, Toast.LENGTH_LONG).show();
             finish();
         } catch (Exception e) {
             Toast.makeText(this, "Error saving user", Toast.LENGTH_LONG).show();

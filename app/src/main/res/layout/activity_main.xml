@@ -5,7 +5,7 @@
     android:id="@+id/rememberCheckBox"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".actvity.MainActivity">
+    tools:context=".activity.MainActivity">
 
     <Button
         android:id="@+id/loginButton"

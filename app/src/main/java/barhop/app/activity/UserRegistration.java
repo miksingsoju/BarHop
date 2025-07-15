@@ -1,10 +1,9 @@
-package barhop.app.actvity;
+package barhop.app.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -19,13 +18,13 @@ import io.realm.Realm;
 
 import barhop.app.model.User;
 
-public class AdminRegistration extends AppCompatActivity {
+public class UserRegistration extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_admin_registration);
+        setContentView(R.layout.activity_user_registration);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.rememberCheckBox), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -41,8 +40,6 @@ public class AdminRegistration extends AppCompatActivity {
     Button cancelButton;
 
     Realm realm;
-
-    private ImageView userPhoto;
 
     User newUser;
 
@@ -94,16 +91,16 @@ public class AdminRegistration extends AppCompatActivity {
 
         newUser.setDisplayName(name);
         newUser.setPassword(password);
-        newUser.setAdmin(true);
+        newUser.setAdmin(false);
 
         try {
             realm.beginTransaction();
             realm.copyToRealmOrUpdate(newUser);
             realm.commitTransaction();
 
-            long count = realm.where(User.class).equalTo("isAdmin", true).count();
+            long count = realm.where(User.class).equalTo("isAdmin", false).count();
 
-            Toast.makeText(this, "Bar Owners saved: " + count, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Bar Hoppers saved: " + count, Toast.LENGTH_LONG).show();
             finish();
         } catch (Exception e) {
             Toast.makeText(this, "Error saving user", Toast.LENGTH_LONG).show();

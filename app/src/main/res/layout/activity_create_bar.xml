@@ -5,14 +5,14 @@
     android:id="@+id/CreateBarLabel"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".actvity.CreateBar">
+    tools:context=".activity.CreateBar">
 
     <Button
         android:id="@+id/createBarReturnButton"
         style="@style/Widget.Material3.Button.IconButton.Filled"
         android:layout_width="83dp"
         android:layout_height="48dp"
-        android:text="<-"
+        android:text="Return"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.043"

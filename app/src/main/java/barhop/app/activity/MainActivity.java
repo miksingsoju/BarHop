@@ -1,4 +1,4 @@
-package barhop.app.actvity;
+package barhop.app.activity;
 
 import android.os.Bundle;
 
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     Realm realm;
 
-    Button loginButton, createBarButton, favoriteBarsButton;
+    Button loginButton, createBarButton, favoriteBarsButton, barListButton;
     TextView mainText;
 
 
@@ -52,13 +52,14 @@ public class MainActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButton);
         createBarButton = findViewById(R.id.createBarButton);
         favoriteBarsButton = findViewById(R.id.favouriteBarsButton);
+        barListButton = findViewById(R.id.barListButton);
 
         mainText = findViewById(R.id.mainText);
 
         loginButton.setOnClickListener(view -> login());
         favoriteBarsButton.setOnClickListener(view -> favoriteBars());
         createBarButton.setOnClickListener(view -> createBar());
-
+        barListButton.setOnClickListener(view -> barList());
 
         initLoggedOut(); // THIS MANAGES VISIBILITY
     }
@@ -70,6 +71,23 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Login.class);
         startActivity(intent);
     }
+
+    private void barList(){
+        Intent intent = new Intent(this, BarList.class);
+        startActivity(intent);
+    }
+
+    private void favoriteBars(){
+
+    }
+
+    private void createBar(){
+        Intent intent = new Intent(this, CreateBar.class);
+        String userUuid = getIntent().getStringExtra("uuid");
+        intent.putExtra("uuid", userUuid);
+        startActivity(intent);
+    }
+
 
     private void isUserLoggedIn() {
         String userUuid = getIntent().getStringExtra("uuid");
@@ -117,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
         favoriteBarsButton.setVisibility(View.VISIBLE);
 
     }
+
 
 
 }

@@ -5,7 +5,7 @@
     android:id="@+id/CreateBarLabel"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".actvity.UserSettings">
+    tools:context=".activity.UserSettings">
 
     <ImageView
         android:id="@+id/imageView2"

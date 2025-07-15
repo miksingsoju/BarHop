@@ -1,4 +1,4 @@
-package barhop.app.actvity;
+package barhop.app.activity;
 
 import android.os.Bundle;
 
@@ -13,7 +13,6 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 import android.content.Intent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -145,6 +144,4 @@ public class Login extends AppCompatActivity {
             startActivity(intent);
         }
     }
-
-
 }

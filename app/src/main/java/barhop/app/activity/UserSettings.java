@@ -1,4 +1,4 @@
-package barhop.app.actvity;
+package barhop.app.activity;
 
 import android.os.Bundle;
 
@@ -10,14 +10,14 @@ import androidx.core.view.WindowInsetsCompat;
 
 import barhop.app.R;
 
-public class BarList extends AppCompatActivity {
+public class UserSettings extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_bar_list);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.rememberCheckBox), (v, insets) -> {
+        setContentView(R.layout.activity_user_settings);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.CreateBarLabel), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
