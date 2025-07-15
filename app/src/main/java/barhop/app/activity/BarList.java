@@ -51,11 +51,13 @@ public class BarList extends AppCompatActivity {
         // initialize Realm
         realm = Realm.getDefaultInstance();
 
+        String userUuid = getIntent().getStringExtra("uuid");
+
         // query the things to display
         RealmResults<Bar> list = realm.where(Bar.class).findAll();
 
         // initialize Adapter
-        BarAdapter adapter = new BarAdapter(this, list, true);
+        BarAdapter adapter = new BarAdapter(this,  userUuid, list, true);
         recyclerView.setAdapter(adapter);
     }
 

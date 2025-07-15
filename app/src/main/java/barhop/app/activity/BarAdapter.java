@@ -1,14 +1,19 @@
 package barhop.app.activity;
 
+import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import barhop.app.model.User;
 import io.realm.OrderedRealmCollection;
+import io.realm.Realm;
 import io.realm.RealmRecyclerViewAdapter;
 
 import barhop.app.model.Bar;
@@ -19,20 +24,25 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView barName, barAddress;
 
+        ImageButton addToFavoriteButton;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             barName = itemView.findViewById(R.id.barName);
             barAddress = itemView.findViewById(R.id.barAddress);
+            addToFavoriteButton = itemView.findViewById(R.id.addToFavoriteButton);
         }
     }
 
-    BarList activity;
+    Activity activity;
+    String userUUID;
 
-    public BarAdapter(BarList activity, @Nullable OrderedRealmCollection<Bar> data, boolean autoUpdate) {
+    public BarAdapter(Activity activity, String userUUID, @Nullable OrderedRealmCollection<Bar> data, boolean autoUpdate) {
         super(data, autoUpdate);
 
         // THIS IS TYPICALLY THE ACTIVITY YOUR RECYCLERVIEW IS IN
         this.activity = activity;
+        this.userUUID = userUUID;
     }
 
     @NonNull
@@ -50,5 +60,31 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
         holder.barName.setText(bar.getName());
         holder.barAddress.setText(bar.getLocation());
 
+        Realm realm = Realm.getDefaultInstance();
+        User user = realm.where(User.class).equalTo("uuid", userUUID).findFirst();
+
+        Boolean isFavorite = (user.getFavoriteBars().contains(bar));
+
+        // initial
+        holder.addToFavoriteButton.setImageResource(
+                isFavorite ? android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off
+        );
+
+        // after being clicked
+        holder.addToFavoriteButton.setOnClickListener(v -> {
+            if (isFavorite){
+                holder.addToFavoriteButton.setImageResource(android.R.drawable.btn_star_big_off);
+                realm.executeTransaction(r -> {
+                    user.removeFromFavourites(bar);
+                });
+
+            } else {
+                holder.addToFavoriteButton.setImageResource(android.R.drawable.btn_star_big_on);
+                realm.executeTransaction(r -> {
+                    user.addToFavourites(bar);
+                });
+            }
+        });
     }
+
 }
