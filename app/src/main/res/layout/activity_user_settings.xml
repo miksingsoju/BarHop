@@ -2,13 +2,26 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/CreateBarLabel"
+    android:id="@+id/rememberCheckBox"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.UserSettings">
+    tools:context=".actvity.UserSettings">
+
+    <Button
+        android:id="@+id/userSettingsReturnButton"
+        style="@style/Widget.Material3.Button.IconButton.Filled"
+        android:layout_width="83dp"
+        android:layout_height="48dp"
+        android:text="Return"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/userSettingsImage"
         android:layout_width="185dp"
         android:layout_height="176dp"
         android:layout_marginTop="44dp"
@@ -26,10 +39,10 @@
         android:hint="Display Name"
         android:textAlignment="center"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="@+id/userSettingsImage"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintStart_toStartOf="@+id/userSettingsImage"
+        app:layout_constraintTop_toBottomOf="@+id/userSettingsImage" />
 
     <EditText
         android:id="@+id/userSettingsPasswordField"
@@ -48,24 +61,24 @@
         android:id="@+id/userSettingsLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="28dp"
         android:text="User Settings"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.137"
+        app:layout_constraintHorizontal_bias="0.115"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/userSettingsReturnButton" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/userSettingsEditNameButton"
         android:layout_width="31dp"
         android:layout_height="27dp"
         app:layout_constraintBottom_toBottomOf="@+id/userSettingsDisplayName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/userSettingsDisplayName"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/userSettingsImage"
         app:layout_constraintVertical_bias="0.509"
         app:srcCompat="@android:drawable/ic_menu_edit" />
 
@@ -77,7 +90,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/userSettingsPasswordField"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/userSettingsEditNameButton"
         app:srcCompat="@android:drawable/ic_menu_edit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
