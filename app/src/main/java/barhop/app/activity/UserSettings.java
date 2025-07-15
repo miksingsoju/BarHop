@@ -46,11 +46,11 @@ public class UserSettings extends AppCompatActivity {
 
         userSettingsReturnButton = findViewById(R.id.userSettingsReturnButton);
         userSettingsEditNameButton = findViewById(R.id.userSettingsEditNameButton);
-        userSettingsEditPasswordButton = findViewById(R.id.userSettingsEditPasswordButton);
+        //userSettingsEditPasswordButton = findViewById(R.id.userSettingsEditPasswordButton);
 
         userSettingsReturnButton.setOnClickListener(v -> ReturnHome());
         userSettingsEditNameButton.setOnClickListener(v -> EditName());
-        userSettingsEditPasswordButton.setOnClickListener(v -> EditPassword());
+        //userSettingsEditPasswordButton.setOnClickListener(v -> EditPassword());
 
     }
 

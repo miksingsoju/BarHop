@@ -121,7 +121,8 @@ public class MainActivity extends AppCompatActivity {
 
             if (user != null) {
                 mainText.setText("Welcome, " + user.getDisplayName() + "!");
-                loginButton.setVisibility(View.GONE); // hide login button
+                loginButton.setText("User Settings"); // change appearance of login button
+                loginButton.setOnClickListener(view -> userSettings());
 
                 if(user.isAdmin()){
                     initAdminView();
@@ -168,8 +169,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void openBars() {
         Toast.makeText(this, "Bars clicked", Toast.LENGTH_SHORT).show();
+        barList();
         // Optional: open bar list screen
         // startActivity(new Intent(this, BarListActivity.class));
+    }
+
+    private void userSettings(){
+        String userUuid = getIntent().getStringExtra("uuid");
+
+        Intent intent = new Intent(this, UserSettings.class);
+        intent.putExtra("uuid", userUuid);
+        startActivity(intent);
     }
 
     private void openLogin() {
