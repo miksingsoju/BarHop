@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
+        bottomNav = findViewById(R.id.bottomNavigationView); // assign to class variable
 
         bottomNav.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -45,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.nav_settings) {
                 openLogin();
                 return true;
-            } else {
-                return false;
             }
+            return false;
         });
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.rememberCheckBox), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -56,12 +56,14 @@ public class MainActivity extends AppCompatActivity {
         });
         init();
         isUserLoggedIn();
+
     }
 
     Realm realm;
 
     Button loginButton, createBarButton, favoriteBarsButton;
     TextView mainText;
+    BottomNavigationView bottomNav;
 
 
     /**
@@ -77,9 +79,6 @@ public class MainActivity extends AppCompatActivity {
         mainText = findViewById(R.id.mainText);
 
         loginButton.setOnClickListener(view -> login());
-
-
-
 
         initLoggedOut();
 
