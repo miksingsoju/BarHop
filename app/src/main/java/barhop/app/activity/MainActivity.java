@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
     Realm realm;
 
-    Button loginButton, createBarButton, favoriteBarsButton, barListButton;
+    // Button loginButton, createBarButton, favoriteBarsButton, barListButton;
     TextView mainText;
     BottomNavigationView bottomNav;
 
@@ -82,23 +82,19 @@ public class MainActivity extends AppCompatActivity {
     public void init(){
         realm = Realm.getDefaultInstance();
 
-        loginButton = findViewById(R.id.loginButton);
-        createBarButton = findViewById(R.id.createBarButton);
-        favoriteBarsButton = findViewById(R.id.favouriteBarsButton);
-        barListButton = findViewById(R.id.barListButton);
+        //loginButton = findViewById(R.id.loginButton);
+        //createBarButton = findViewById(R.id.createBarButton);
+        //favoriteBarsButton = findViewById(R.id.favouriteBarsButton);
+        //barListButton = findViewById(R.id.barListButton);
 
         mainText = findViewById(R.id.mainText);
 
-        // Non Logged In User
 
-        // Normal User
 
-        // Admin User
-
-        loginButton.setOnClickListener(view -> login());
-        favoriteBarsButton.setOnClickListener(view -> favoriteBars());
-        createBarButton.setOnClickListener(view -> createBar());
-        barListButton.setOnClickListener(view -> barList());
+        //loginButton.setOnClickListener(view -> login());
+        //favoriteBarsButton.setOnClickListener(view -> favoriteBars());
+        //createBarButton.setOnClickListener(view -> createBar());
+        //barListButton.setOnClickListener(view -> barList());
 
         initLoggedOut(); // THIS MANAGES VISIBILITY
     }
@@ -137,8 +133,8 @@ public class MainActivity extends AppCompatActivity {
 
             if (user != null) {
                 mainText.setText("Welcome, " + user.getDisplayName() + "!");
-                loginButton.setText("User Settings"); // change appearance of login button
-                loginButton.setOnClickListener(view -> userSettings());
+                //loginButton.setText("User Settings"); // change appearance of login button
+                //loginButton.setOnClickListener(view -> userSettings());
 
                 if(user.isAdmin()){
                     initAdminView();
@@ -154,8 +150,8 @@ public class MainActivity extends AppCompatActivity {
      * IT ONLY MANAGES VISIBILITY!
      */
     private void initLoggedOut(){
-        createBarButton.setVisibility(View.GONE);
-        favoriteBarsButton.setVisibility(View.GONE);
+        //createBarButton.setVisibility(View.GONE);
+        //favoriteBarsButton.setVisibility(View.GONE);
 
         bottomNav.getMenu().clear();
         bottomNav.inflateMenu(R.menu.bottom_nav_menu);
@@ -165,8 +161,8 @@ public class MainActivity extends AppCompatActivity {
      * This helper method is for initializing the views (buttons, etc.) that should be visible to admins
      */
     private void initAdminView(){
-        createBarButton.setVisibility(View.GONE);
-        favoriteBarsButton.setVisibility(View.VISIBLE);
+        //createBarButton.setVisibility(View.GONE);
+        //favoriteBarsButton.setVisibility(View.VISIBLE);
 
         bottomNav.getMenu().clear();
         bottomNav.inflateMenu(R.menu.bottom_nav_admin);
@@ -179,8 +175,8 @@ public class MainActivity extends AppCompatActivity {
      */
 
     private void initUserView(){
-        createBarButton.setVisibility(View.GONE);
-        favoriteBarsButton.setVisibility(View.VISIBLE);
+        //createBarButton.setVisibility(View.GONE);
+        //favoriteBarsButton.setVisibility(View.VISIBLE);
 
         bottomNav.getMenu().clear();
         bottomNav.inflateMenu(R.menu.bottom_nav_user);
