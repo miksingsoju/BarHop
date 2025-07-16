@@ -1,6 +1,7 @@
 package barhop.app.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -33,7 +34,7 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
             super(itemView);
             barName = itemView.findViewById(R.id.barName);
             barAddress = itemView.findViewById(R.id.barAddress);
-            addToFavoriteButton = itemView.findViewById(R.id.addToFavoriteButton);
+            //addToFavoriteButton = itemView.findViewById(R.id.addToFavoriteButton);
             editBarButton = itemView.findViewById(R.id.editBarButton);
             barLikes = itemView.findViewById(R.id.barLikes);
             likeButton = itemView.findViewById(R.id.likeButton);
@@ -100,15 +101,6 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
             intent.putExtra("barUUID", bar.getUuid());
             activity.startActivity(intent);
         });
-
-        final boolean[] isFavorite = {false};
-        if (user != null && user.getFavoriteBars() != null) {
-            isFavorite[0] = user.getFavoriteBars().contains(bar);
-        }
-
-        holder.addToFavoriteButton.setImageResource(
-                isFavorite[0] ? android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off
-        );
 
         // after being clicked
 //        holder.addToFavoriteButton.setOnClickListener(v -> {
