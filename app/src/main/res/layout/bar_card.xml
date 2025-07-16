@@ -21,6 +21,7 @@
         android:id="@+id/barName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="TextView"
@@ -51,6 +52,7 @@
         android:id="@+id/barLikes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="32dp"
         android:fontFamily="@font/poppins_medium"
@@ -58,7 +60,8 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barAddress" />
+        app:layout_constraintTop_toBottomOf="@+id/barAddress"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/likeButton"
