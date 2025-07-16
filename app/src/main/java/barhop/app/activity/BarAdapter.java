@@ -27,12 +27,15 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
         TextView barName, barAddress, barLikes, barUUID;
         ImageButton likeButton;
 
-        ImageButton addToFavoriteButton;
+        ImageButton addToFavoriteButton, editBarButton;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             barName = itemView.findViewById(R.id.barName);
             barAddress = itemView.findViewById(R.id.barAddress);
+            //addToFavoriteButton = itemView.findViewById(R.id.addToFavoriteButton);
+            editBarButton = itemView.findViewById(R.id.editBarButton);
             barLikes = itemView.findViewById(R.id.barLikes);
             likeButton = itemView.findViewById(R.id.likeButton);
         }
@@ -61,12 +64,6 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
         Bar bar = getItem(position);
         if (bar == null) return;
 
-        realm = Realm.getDefaultInstance();
-
-
-        User user = realm.where(User.class).equalTo("uuid", userUUID).findFirst();
-        if (user == null) return;
-
         holder.barName.setText(bar.getName());
         holder.barAddress.setText(bar.getLocation());
 
@@ -77,7 +74,8 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
             activity.startActivity(intent);
         });
 
-        // Boolean isFavorite = (user.getFavoriteBars().contains(bar));
+        Realm realm = Realm.getDefaultInstance();
+        User user = realm.where(User.class).equalTo("uuid", userUUID).findFirst();
 
         holder.likeButton.setOnClickListener(v -> {
             Like like = new Like();
@@ -85,11 +83,24 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
             like.setBar(bar);
         });
 
+        boolean isOwner = bar.getOwner().equals(user);
+
+        if(isOwner){
+            holder.editBarButton.setVisibility(View.VISIBLE);
+        }else {
+            holder.editBarButton.setVisibility(View.GONE);
+        }
 
         // initial
 //        holder.addToFavoriteButton.setImageResource(
 //                isFavorite ? android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off
 //        );
+        holder.editBarButton.setOnClickListener(view -> {
+            Toast.makeText(activity, "Clicked: " + bar.getName(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(activity, EditBar.class);
+            intent.putExtra("barUUID", bar.getUuid());
+            activity.startActivity(intent);
+        });
 
         // after being clicked
 //        holder.addToFavoriteButton.setOnClickListener(v -> {

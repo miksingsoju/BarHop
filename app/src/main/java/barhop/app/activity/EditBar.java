@@ -24,7 +24,7 @@ import io.realm.Realm;
 
 public class EditBar extends AppCompatActivity {
 
-    Button editBarReturnBtn, editBarAddButton;
+    Button editBarReturnButton, editBarAddButton;
     EditText editBarNameField, editBarAddressField, editBarDescriptionField;
     ImageButton editBarImageField;
 
@@ -66,10 +66,10 @@ public class EditBar extends AppCompatActivity {
 
         editBarImageField = findViewById(R.id.createBarImageField);
 
-        editBarReturnBtn = findViewById(R.id.editBarReturnBtn);
+        editBarReturnButton = findViewById(R.id.userSettingsReturnButton);
         editBarAddButton = findViewById(R.id.createBarAddButton);
 
-        editBarReturnBtn.setOnClickListener(v -> returnLanding());
+        editBarReturnButton.setOnClickListener(v -> returnLanding());
         editBarAddButton.setOnClickListener(v -> addBar());
 
         editBarNameField.setText(barToEdit.getName());

@@ -24,7 +24,7 @@ import io.realm.Realm;
 
 public class CreateBar extends AppCompatActivity {
 
-    Button editBarReturnButton, createBarAddButton;
+    Button createBarReturnButton, createBarAddButton;
     EditText createBarNameField, createBarAddressField, createBarDescriptionField;
     ImageButton createBarImageField;
 
@@ -58,16 +58,16 @@ public class CreateBar extends AppCompatActivity {
 
         owner = realm.where(User.class).equalTo("uuid",ownerUUID).findFirst();
 
-        createBarNameField = findViewById(R.id.editBarNameField);
-        createBarAddressField = findViewById(R.id.editBarAddressField);
-        createBarDescriptionField = findViewById(R.id.editDescriptionField);
+        createBarNameField = findViewById(R.id.createBarNameField);
+        createBarAddressField = findViewById(R.id.createBarAddressField);
+        createBarDescriptionField = findViewById(R.id.createBarDescriptionField);
 
-        createBarImageField = findViewById(R.id.editBarImageField);
+        createBarImageField = findViewById(R.id.createBarImageField);
 
-        editBarReturnButton = findViewById(R.id.editBarReturnButton);
-        createBarAddButton = findViewById(R.id.editEditButton);
+        createBarReturnButton = findViewById(R.id.userSettingsReturnButton);
+        createBarAddButton = findViewById(R.id.createBarAddButton);
 
-        editBarReturnButton.setOnClickListener(v -> returnLanding());
+        createBarReturnButton.setOnClickListener(v -> returnLanding());
         createBarAddButton.setOnClickListener(v -> addBar());
     }
 
@@ -87,15 +87,6 @@ public class CreateBar extends AppCompatActivity {
             return;
         }
 
-        if (address.isEmpty()) {
-            Toast.makeText(this, "Bar must have a location", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        if (description.isEmpty()) {
-            Toast.makeText(this, "Bar must have a description", Toast.LENGTH_LONG).show();
-            return;
-        }
         // Check if user already exists
         Bar existingBar = realm.where(Bar.class).equalTo("name", name).findFirst();
         if (existingBar != null) {
@@ -121,6 +112,5 @@ public class CreateBar extends AppCompatActivity {
             Toast.makeText(this, "Error saving bar", Toast.LENGTH_LONG).show();
         }
     }
-
 
 }
