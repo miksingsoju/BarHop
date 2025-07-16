@@ -43,6 +43,4 @@ public class BarDetail extends AppCompatActivity {
         barAddress.setText(bar.getLocation());
         barDescription.setText(bar.getDescription());
     }
-
-
 }

@@ -55,7 +55,7 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Bar bar = getItem(position);
+        final Bar bar = getItem(position);
         if (bar == null) return;
 
         holder.barName.setText(bar.getName());
@@ -63,39 +63,35 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
 
         holder.itemView.setOnClickListener(v -> {
             Toast.makeText(activity, "Clicked: " + bar.getName(), Toast.LENGTH_SHORT).show();
-
-            Intent intent = new Intent(activity,BarDetail.class);
-            intent.putExtra("barUUID",bar.getUuid());
+            Intent intent = new Intent(activity, BarDetail.class);
+            intent.putExtra("barUUID", bar.getUuid());
             activity.startActivity(intent);
-
         });
-
 
         Realm realm = Realm.getDefaultInstance();
         User user = realm.where(User.class).equalTo("uuid", userUUID).findFirst();
 
-        Boolean isFavorite = (user.getFavoriteBars().contains(bar));
+        final boolean[] isFavorite = {false};
+        if (user != null && user.getFavoriteBars() != null) {
+            isFavorite[0] = user.getFavoriteBars().contains(bar);
+        }
 
-        // initial look of the favourite button
         holder.addToFavoriteButton.setImageResource(
-                isFavorite ? android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off
+                isFavorite[0] ? android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off
         );
 
-        // after being clicked
         holder.addToFavoriteButton.setOnClickListener(v -> {
-            if (isFavorite){
+            if (isFavorite[0]) {
                 holder.addToFavoriteButton.setImageResource(android.R.drawable.btn_star_big_off);
-                realm.executeTransaction(r -> {
-                    user.removeFromFavourites(bar);
-                });
-
+                realm.executeTransaction(r -> user.removeFromFavourites(bar));
+                isFavorite[0] = false;
             } else {
                 holder.addToFavoriteButton.setImageResource(android.R.drawable.btn_star_big_on);
-                realm.executeTransaction(r -> {
-                    user.addToFavourites(bar);
-                });
+                realm.executeTransaction(r -> user.addToFavourites(bar));
+                isFavorite[0] = true;
             }
         });
     }
+
 
 }

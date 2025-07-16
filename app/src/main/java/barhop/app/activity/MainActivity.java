@@ -1,5 +1,6 @@
 package barhop.app.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -65,11 +66,14 @@ public class MainActivity extends AppCompatActivity {
     TextView mainText;
     BottomNavigationView bottomNav;
 
+    SharedPreferences auth;
+
     /**
      * This method initializes the views needed.
      */
     public void init(){
         realm = Realm.getDefaultInstance();
+        auth = getSharedPreferences("auth", MODE_PRIVATE);
 
         loginButton = findViewById(R.id.loginButton);
         createBarButton = findViewById(R.id.createBarButton);
@@ -96,28 +100,22 @@ public class MainActivity extends AppCompatActivity {
 
     private void barList(){
         Intent intent = new Intent(this, BarList.class);
-        String userUuid = getIntent().getStringExtra("uuid");
-        intent.putExtra("uuid", userUuid);
         startActivity(intent);
     }
 
     private void favoriteBars(){
         Intent intent = new Intent(this, FavoriteBars.class);
-        String userUuid = getIntent().getStringExtra("uuid");
-        intent.putExtra("uuid", userUuid);
         startActivity(intent);
     }
 
     private void createBar(){
         Intent intent = new Intent(this, CreateBar.class);
-        String userUuid = getIntent().getStringExtra("uuid");
-        intent.putExtra("uuid", userUuid);
         startActivity(intent);
     }
 
 
     private void isUserLoggedIn() {
-        String userUuid = getIntent().getStringExtra("uuid");
+        String userUuid = auth.getString("uuid", null);
 
         if (userUuid != null) {
             // Fetch user from Realm using UUID
@@ -179,10 +177,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void userSettings(){
-        String userUuid = getIntent().getStringExtra("uuid");
-
         Intent intent = new Intent(this, UserSettings.class);
-        intent.putExtra("uuid", userUuid);
         startActivity(intent);
     }
 

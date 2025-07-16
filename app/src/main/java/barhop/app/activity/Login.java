@@ -113,9 +113,12 @@ public class Login extends AppCompatActivity {
 
                 String userUuid = result.getUuid(); // Add this line
 
-                Intent intent = new Intent(this, MainActivity.class);
-                intent.putExtra("uuid", userUuid);
+               SharedPreferences auth = getSharedPreferences("auth", MODE_PRIVATE);
+               SharedPreferences.Editor authEdit = auth.edit();
+               authEdit.putString("uuid",userUuid);
+               authEdit.apply();
 
+                Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 Toast.makeText(this, "Logged in. ", Toast.LENGTH_LONG).show();
             } else {
