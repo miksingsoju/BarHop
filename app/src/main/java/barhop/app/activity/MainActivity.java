@@ -40,14 +40,24 @@ public class MainActivity extends AppCompatActivity {
             if (itemId == R.id.nav_home) {
                 openHome();
                 return true;
-            } else if (itemId == R.id.nav_bars) {
-                openBars();
+            } else if (itemId == R.id.nav_favebars) {
+                openFavorites();
                 return true;
-            } else if (itemId == R.id.nav_settings) {
+            } else if (itemId == R.id.nav_logout) {
+                openLogout();
+                return true;
+            } else if (itemId == R.id.nav_profile) {
+                openProfile();
+                return true;
+            } else if (itemId == R.id.nav_login) {
                 openLogin();
+                return true;
+            } else if (itemId == R.id.nav_addbars) {
+                openAddBar();
                 return true;
             }
             return false;
+
         });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.rememberCheckBox), (v, insets) -> {
@@ -62,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     Realm realm;
 
-    Button loginButton, createBarButton, favoriteBarsButton, barListButton;
+    // Button loginButton, createBarButton, favoriteBarsButton, barListButton;
     TextView mainText;
     BottomNavigationView bottomNav;
 
@@ -75,17 +85,19 @@ public class MainActivity extends AppCompatActivity {
         realm = Realm.getDefaultInstance();
         auth = getSharedPreferences("auth", MODE_PRIVATE);
 
-        loginButton = findViewById(R.id.loginButton);
-        createBarButton = findViewById(R.id.createBarButton);
-        favoriteBarsButton = findViewById(R.id.favouriteBarsButton);
-        barListButton = findViewById(R.id.barListButton);
+        //loginButton = findViewById(R.id.loginButton);
+        //createBarButton = findViewById(R.id.createBarButton);
+        //favoriteBarsButton = findViewById(R.id.favouriteBarsButton);
+        //barListButton = findViewById(R.id.barListButton);
 
         mainText = findViewById(R.id.mainText);
 
-        loginButton.setOnClickListener(view -> login());
-        favoriteBarsButton.setOnClickListener(view -> favoriteBars());
-        createBarButton.setOnClickListener(view -> createBar());
-        barListButton.setOnClickListener(view -> barList());
+
+
+        //loginButton.setOnClickListener(view -> login());
+        //favoriteBarsButton.setOnClickListener(view -> favoriteBars());
+        //createBarButton.setOnClickListener(view -> createBar());
+        //barListButton.setOnClickListener(view -> barList());
 
         initLoggedOut(); // THIS MANAGES VISIBILITY
     }
@@ -123,8 +135,8 @@ public class MainActivity extends AppCompatActivity {
 
             if (user != null) {
                 mainText.setText("Welcome, " + user.getDisplayName() + "!");
-                loginButton.setText("User Settings"); // change appearance of login button
-                loginButton.setOnClickListener(view -> userSettings());
+                //loginButton.setText("User Settings"); // change appearance of login button
+                //loginButton.setOnClickListener(view -> userSettings());
 
                 if(user.isAdmin()){
                     initAdminView();
@@ -140,16 +152,22 @@ public class MainActivity extends AppCompatActivity {
      * IT ONLY MANAGES VISIBILITY!
      */
     private void initLoggedOut(){
-        createBarButton.setVisibility(View.GONE);
-        favoriteBarsButton.setVisibility(View.GONE);
+        //createBarButton.setVisibility(View.GONE);
+        //favoriteBarsButton.setVisibility(View.GONE);
+
+        bottomNav.getMenu().clear();
+        bottomNav.inflateMenu(R.menu.bottom_nav_menu);
     }
 
     /**
      * This helper method is for initializing the views (buttons, etc.) that should be visible to admins
      */
     private void initAdminView(){
-        createBarButton.setVisibility(View.VISIBLE);
-        favoriteBarsButton.setVisibility(View.VISIBLE);
+        //createBarButton.setVisibility(View.GONE);
+        //favoriteBarsButton.setVisibility(View.VISIBLE);
+
+        bottomNav.getMenu().clear();
+        bottomNav.inflateMenu(R.menu.bottom_nav_admin);
 
     }
 
@@ -159,10 +177,16 @@ public class MainActivity extends AppCompatActivity {
      */
 
     private void initUserView(){
-        createBarButton.setVisibility(View.GONE);
-        favoriteBarsButton.setVisibility(View.VISIBLE);
+        //createBarButton.setVisibility(View.GONE);
+        //favoriteBarsButton.setVisibility(View.VISIBLE);
+
+        bottomNav.getMenu().clear();
+        bottomNav.inflateMenu(R.menu.bottom_nav_user);
 
     }
+
+
+    // Nav Bar Buttons Edit
 
     private void openHome() {
         Toast.makeText(this, "Home clicked", Toast.LENGTH_SHORT).show();
@@ -183,6 +207,27 @@ public class MainActivity extends AppCompatActivity {
 
     private void openLogin() {
         Intent intent = new Intent(this, Login.class);
+        startActivity(intent);
+    }
+
+    private void openLogout() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
+    }
+
+    private void openProfile() {
+        Intent intent = new Intent(this, UserSettings.class);
+        startActivity(intent);
+    }
+
+    private void openAddBar() {
+        Intent intent = new Intent(this, CreateBar.class);
+        startActivity(intent);
+    }
+
+    private void openFavorites() {
+        Intent intent = new Intent(this, FavoriteBars.class);
         startActivity(intent);
     }
 
