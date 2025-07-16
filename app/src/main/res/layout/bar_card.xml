@@ -38,15 +38,6 @@
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/barName" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/barAddress"
-        app:layout_constraintStart_toStartOf="@+id/barName"
-        app:layout_constraintTop_toTopOf="@+id/barAddress"
-        app:srcCompat="@drawable/ic_location" />
-
     <TextView
         android:id="@+id/barLikes"
         android:layout_width="wrap_content"
@@ -60,6 +51,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barAddress" />
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/barAddress"
+        app:layout_constraintStart_toStartOf="@+id/barName"
+        app:layout_constraintTop_toTopOf="@+id/barAddress"
+        app:srcCompat="@drawable/ic_location" />
+
     <ImageButton
         android:id="@+id/likeButton"
         android:layout_width="27dp"
@@ -70,16 +70,7 @@
         android:background="#00FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/heart" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:srcCompat="@drawable/ic_heart_line" />
 
     <ImageButton
         android:id="@+id/editBarButton"

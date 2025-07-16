@@ -9,17 +9,21 @@ public class Like extends RealmObject {
     @PrimaryKey
     private String userUUID;
 
-    private User user;
-    private Bar bar;
+    private String barUUID;
 
-    public Like(){}
+    public Like() { }
 
-    public void setUser(User user){
-        this.user = user;
-        this.userUUID = user.getUuid();
+    public String getUser() {
+        return userUUID;
     }
-    public User getUser(){ return user;}
-    public String getUserUUID(){return userUUID; }
-    public Bar getBar(){ return bar;}
-    public void setBar(Bar bar){ this.bar = bar;}
+
+    public void setUser(String user){
+        this.userUUID = user;
+    }
+
+    public String getBar() {
+        return barUUID;
+    }
+
+    public void setBar(String bar) { this.barUUID = bar; }
 }

@@ -12,29 +12,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import barhop.app.model.Like;
+import barhop.app.model.Bar;
 import barhop.app.model.User;
+import barhop.app.model.Like;
 import io.realm.OrderedRealmCollection;
 import io.realm.Realm;
 import io.realm.RealmRecyclerViewAdapter;
-
-import barhop.app.model.Bar;
 
 import barhop.app.R;
 
 public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView barName, barAddress, barLikes, barUUID;
-        ImageButton likeButton;
-
-        ImageButton addToFavoriteButton, editBarButton;
-
+        TextView barName, barAddress, barLikes;
+        ImageButton likeButton, editBarButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             barName = itemView.findViewById(R.id.barName);
             barAddress = itemView.findViewById(R.id.barAddress);
-            //addToFavoriteButton = itemView.findViewById(R.id.addToFavoriteButton);
             editBarButton = itemView.findViewById(R.id.editBarButton);
             barLikes = itemView.findViewById(R.id.barLikes);
             likeButton = itemView.findViewById(R.id.likeButton);
@@ -77,10 +72,40 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
         Realm realm = Realm.getDefaultInstance();
         User user = realm.where(User.class).equalTo("uuid", userUUID).findFirst();
 
+        int likes = realm
+                .where(Like.class)
+                .equalTo("barUUID", bar.getUuid())
+                .findAll()
+                .size();
+
+        Like like = realm
+                .where(Like.class)
+                .equalTo("userUUID", userUUID)
+                .equalTo("barUUID", bar.getUuid())
+                .findFirst();
+
+        holder.barName.setText(bar.getName());
+        holder.barAddress.setText(bar.getLocation());
+        holder.barLikes.setText(String.valueOf(likes));
+        holder.likeButton.setImageResource(
+                like == null ? R.drawable.ic_heart_line : R.drawable.ic_heart_fill
+        );
+
         holder.likeButton.setOnClickListener(v -> {
-            Like like = new Like();
-            like.setUser(user);
-            like.setBar(bar);
+            if (like == null) {
+                Like newLike = new Like();
+                newLike.setUser(userUUID);
+                newLike.setBar(bar.getUuid());
+
+                realm.beginTransaction();
+                realm.copyToRealmOrUpdate(newLike);
+                realm.commitTransaction();
+            } else {
+                realm.beginTransaction();
+                like.deleteFromRealm();
+                realm.commitTransaction();
+            }
+            notifyDataSetChanged();
         });
 
         boolean isOwner = bar.getOwner().equals(user);
@@ -91,32 +116,12 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
             holder.editBarButton.setVisibility(View.GONE);
         }
 
-        // initial
-//        holder.addToFavoriteButton.setImageResource(
-//                isFavorite ? android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off
-//        );
         holder.editBarButton.setOnClickListener(view -> {
             Toast.makeText(activity, "Clicked: " + bar.getName(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(activity, EditBar.class);
             intent.putExtra("barUUID", bar.getUuid());
             activity.startActivity(intent);
         });
-
-        // after being clicked
-//        holder.addToFavoriteButton.setOnClickListener(v -> {
-//            if (isFavorite){
-//                holder.addToFavoriteButton.setImageResource(android.R.drawable.btn_star_big_off);
-//                realm.executeTransaction(r -> {
-//                    user.removeFromFavourites(bar);
-//                });
-//
-//            } else {
-//                holder.addToFavoriteButton.setImageResource(android.R.drawable.btn_star_big_on);
-//                realm.executeTransaction(r -> {
-//                    user.addToFavourites(bar);
-//                });
-//            }
-//        });
     }
 
 }

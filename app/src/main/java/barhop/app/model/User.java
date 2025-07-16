@@ -44,19 +44,19 @@ public class User extends RealmObject {
 
     // FAVOURITE BARS
         private RealmList<Bar> favoriteBars  = new RealmList<>();
-        public RealmList<Bar> getFavoriteBars(){ return favoriteBars;}
-        public void addToFavourites(Bar bar){ favoriteBars.add(bar);}
-        public void removeFromFavourites(Bar bar){ favoriteBars.remove(bar);}
+        public RealmList<Bar> getFavoriteBars() { return favoriteBars;}
+        public void addToFavourites(Bar bar) { favoriteBars.add(bar);}
+        public void removeFromFavourites(Bar bar) { favoriteBars.remove(bar);}
 
     // COMMENT
         @LinkingObjects("commenter")
         private final RealmResults<Comment> comments = null;
-        public RealmResults<Comment> getComments() {return comments;}
+        public RealmResults<Comment> getComments() { return comments;}
 
     // LIKE
-        @LinkingObjects("user")
-        private final RealmResults<Like> likes = null;
-        public RealmResults<Like> getLikes() { return likes; }
+//        @LinkingObjects("user")
+//        private final RealmResults<Like> likes = null;
+//        public RealmResults<Like> getLikes() { return likes; }
 
     // BOOKING
 
