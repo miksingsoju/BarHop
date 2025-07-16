@@ -25,13 +25,15 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView barName, barAddress;
 
-        ImageButton addToFavoriteButton;
+        ImageButton addToFavoriteButton, editBarButton;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             barName = itemView.findViewById(R.id.barName);
             barAddress = itemView.findViewById(R.id.barAddress);
             addToFavoriteButton = itemView.findViewById(R.id.addToFavoriteButton);
+            editBarButton = itemView.findViewById(R.id.editBarButton);
         }
     }
 
@@ -70,6 +72,21 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
 
         Realm realm = Realm.getDefaultInstance();
         User user = realm.where(User.class).equalTo("uuid", userUUID).findFirst();
+
+        boolean isOwner = bar.getOwner().equals(user);
+
+        if(isOwner){
+            holder.editBarButton.setVisibility(View.VISIBLE);
+        }else {
+            holder.editBarButton.setVisibility(View.GONE);
+        }
+
+        holder.editBarButton.setOnClickListener(view -> {
+            Toast.makeText(activity, "Clicked: " + bar.getName(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(activity, EditBar.class);
+            intent.putExtra("barUUID", bar.getUuid());
+            activity.startActivity(intent);
+        });
 
         final boolean[] isFavorite = {false};
         if (user != null && user.getFavoriteBars() != null) {

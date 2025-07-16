@@ -1,5 +1,6 @@
 package barhop.app.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -34,14 +35,16 @@ public class BarList extends AppCompatActivity {
 
     RecyclerView recyclerView;
 
-    TextView nameView;
+    TextView barName;
 
     Realm realm;
+
+    SharedPreferences auth;
 
     public void init()
     {
         recyclerView = findViewById(R.id.recyclerView);
-        nameView = findViewById(R.id.barName);
+        barName = findViewById(R.id.barName);
 
         // initialize RecyclerView
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -50,8 +53,9 @@ public class BarList extends AppCompatActivity {
 
         // initialize Realm
         realm = Realm.getDefaultInstance();
+        auth = getSharedPreferences("auth", MODE_PRIVATE);
 
-        String userUuid = getIntent().getStringExtra("uuid");
+        String userUuid = auth.getString("uuid","");
 
         // query the things to display
         RealmResults<Bar> list = realm.where(Bar.class).findAll();
