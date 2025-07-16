@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import barhop.app.model.Like;
 import barhop.app.model.User;
 import io.realm.OrderedRealmCollection;
 import io.realm.Realm;
@@ -23,22 +24,22 @@ import barhop.app.R;
 
 public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView barName, barAddress;
+        TextView barName, barAddress, barLikes, barUUID;
+        ImageButton likeButton;
 
-        ImageButton addToFavoriteButton, editBarButton;
-
+        ImageButton addToFavoriteButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             barName = itemView.findViewById(R.id.barName);
             barAddress = itemView.findViewById(R.id.barAddress);
-            addToFavoriteButton = itemView.findViewById(R.id.addToFavoriteButton);
-            editBarButton = itemView.findViewById(R.id.editBarButton);
+            barLikes = itemView.findViewById(R.id.barLikes);
+            likeButton = itemView.findViewById(R.id.likeButton);
         }
     }
-
     Activity activity;
     String userUUID;
+    Realm realm;
 
     public BarAdapter(Activity activity, String userUUID, @Nullable OrderedRealmCollection<Bar> data, boolean autoUpdate) {
         super(data, autoUpdate);
@@ -57,8 +58,11 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final Bar bar = getItem(position);
+        Bar bar = getItem(position);
         if (bar == null) return;
+
+        User user = realm.where(User.class).equalTo("uuid", userUUID).findFirst();
+        if (user == null) return;
 
         holder.barName.setText(bar.getName());
         holder.barAddress.setText(bar.getLocation());
@@ -72,43 +76,36 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
 
         Realm realm = Realm.getDefaultInstance();
         User user = realm.where(User.class).equalTo("uuid", userUUID).findFirst();
+        realm = Realm.getDefaultInstance();
+        // Boolean isFavorite = (user.getFavoriteBars().contains(bar));
 
-        boolean isOwner = bar.getOwner().equals(user);
-
-        if(isOwner){
-            holder.editBarButton.setVisibility(View.VISIBLE);
-        }else {
-            holder.editBarButton.setVisibility(View.GONE);
-        }
-
-        holder.editBarButton.setOnClickListener(view -> {
-            Toast.makeText(activity, "Clicked: " + bar.getName(), Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(activity, EditBar.class);
-            intent.putExtra("barUUID", bar.getUuid());
-            activity.startActivity(intent);
+        holder.likeButton.setOnClickListener(v -> {
+            Like like = new Like();
+            like.setUser(user);
+            like.setBar(bar);
         });
 
-        final boolean[] isFavorite = {false};
-        if (user != null && user.getFavoriteBars() != null) {
-            isFavorite[0] = user.getFavoriteBars().contains(bar);
-        }
 
-        holder.addToFavoriteButton.setImageResource(
-                isFavorite[0] ? android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off
-        );
+        // initial
+//        holder.addToFavoriteButton.setImageResource(
+//                isFavorite ? android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off
+//        );
 
-        holder.addToFavoriteButton.setOnClickListener(v -> {
-            if (isFavorite[0]) {
-                holder.addToFavoriteButton.setImageResource(android.R.drawable.btn_star_big_off);
-                realm.executeTransaction(r -> user.removeFromFavourites(bar));
-                isFavorite[0] = false;
-            } else {
-                holder.addToFavoriteButton.setImageResource(android.R.drawable.btn_star_big_on);
-                realm.executeTransaction(r -> user.addToFavourites(bar));
-                isFavorite[0] = true;
-            }
-        });
+        // after being clicked
+//        holder.addToFavoriteButton.setOnClickListener(v -> {
+//            if (isFavorite){
+//                holder.addToFavoriteButton.setImageResource(android.R.drawable.btn_star_big_off);
+//                realm.executeTransaction(r -> {
+//                    user.removeFromFavourites(bar);
+//                });
+//
+//            } else {
+//                holder.addToFavoriteButton.setImageResource(android.R.drawable.btn_star_big_on);
+//                realm.executeTransaction(r -> {
+//                    user.addToFavourites(bar);
+//                });
+//            }
+//        });
     }
-
 
 }
