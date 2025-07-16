@@ -188,7 +188,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void openHome() {
         Toast.makeText(this, "Home clicked", Toast.LENGTH_SHORT).show();
-        // Optional: navigate to a HomeActivity or update UI
+        Intent intent = new Intent(this, BarList.class);
+        startActivity(intent);
     }
 
     private void openBars() {
