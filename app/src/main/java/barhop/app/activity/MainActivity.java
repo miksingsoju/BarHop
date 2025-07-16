@@ -44,7 +44,14 @@ public class MainActivity extends AppCompatActivity {
                 openFavorites();
                 return true;
             } else if (itemId == R.id.nav_logout) {
-                openLogout();
+                new android.app.AlertDialog.Builder(this)
+                        .setTitle("Logging Out User")
+                        .setMessage("Are you sure you want to logout?")
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            openLogout();
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
                 return true;
             } else if (itemId == R.id.nav_profile) {
                 openProfile();
@@ -116,8 +123,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void favoriteBars(){
-        Intent intent = new Intent(this, FavoriteBars.class);
-        startActivity(intent);
+        //Intent intent = new Intent(this, FavoriteBars.class);
+        //startActivity(intent);
     }
 
     private void createBar(){
