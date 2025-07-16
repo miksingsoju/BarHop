@@ -79,7 +79,7 @@ public class EditBar extends AppCompatActivity {
     }
 
     public void returnLanding() {
-        Intent intent = new Intent(this, BarList.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
