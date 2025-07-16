@@ -66,7 +66,7 @@ public class EditBar extends AppCompatActivity {
 
         editBarImageField = findViewById(R.id.createBarImageField);
 
-        editBarReturnButton = findViewById(R.id.createBarReturnButton);
+        editBarReturnButton = findViewById(R.id.userSettingsReturnButton);
         editBarAddButton = findViewById(R.id.createBarAddButton);
 
         editBarReturnButton.setOnClickListener(v -> returnLanding());
