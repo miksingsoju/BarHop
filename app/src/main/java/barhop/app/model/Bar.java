@@ -29,9 +29,9 @@ public class Bar extends RealmObject {
     // Relationship handling of Likes, Comments, [Bookings, Tables???] //
 
     // LIKES
-        @LinkingObjects("bar")
-        private final RealmResults<Like> likes = null;
-        public RealmResults<Like> getLikes() { return likes; }
+//        @LinkingObjects("bar")
+//        private final RealmResults<Like> likes = null;
+//        public RealmResults<Like> getLikes() { return likes; }
 
     // COMMENTS
         @LinkingObjects("bar")  // reverse of Comment.bar

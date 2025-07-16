@@ -5,14 +5,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import barhop.app.model.Like;
-import barhop.app.model.User;
 import io.realm.OrderedRealmCollection;
 import io.realm.Realm;
 import io.realm.RealmRecyclerViewAdapter;
@@ -23,10 +23,8 @@ import barhop.app.R;
 
 public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView barName, barAddress, barLikes, barUUID;
+        TextView barName, barAddress, barLikes;
         ImageButton likeButton;
-
-        ImageButton addToFavoriteButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,42 +58,46 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
         Bar bar = getItem(position);
         if (bar == null) return;
 
-        User user = realm.where(User.class).equalTo("uuid", userUUID).findFirst();
-        if (user == null) return;
+        realm = Realm.getDefaultInstance();
+        int likes = realm
+                .where(Like.class)
+                .equalTo("barUUID", bar.getUuid())
+                .findAll()
+                .size();
+
+        Like like = realm
+                .where(Like.class)
+                .equalTo("userUUID", userUUID)
+                .equalTo("barUUID", bar.getUuid())
+                .findFirst();
 
         holder.barName.setText(bar.getName());
         holder.barAddress.setText(bar.getLocation());
-
-        realm = Realm.getDefaultInstance();
-        // Boolean isFavorite = (user.getFavoriteBars().contains(bar));
+        holder.barLikes.setText(String.valueOf(likes));
+        holder.likeButton.setImageResource(
+                like == null ? R.drawable.ic_heart_line : R.drawable.ic_heart_fill
+        );
 
         holder.likeButton.setOnClickListener(v -> {
-            Like like = new Like();
-            like.setUser(user);
-            like.setBar(bar);
+            if (like == null) {
+                Like newLike = new Like();
+                newLike.setUser(userUUID);
+                newLike.setBar(bar.getUuid());
+
+                realm.beginTransaction();
+                realm.copyToRealmOrUpdate(newLike);
+                realm.commitTransaction();
+//                holder.likeButton.setImageResource(R.drawable.ic_heart_fill);
+//                holder.barLikes.setText(String.valueOf(likes + 1));
+            } else {
+//                holder.likeButton.setImageResource(R.drawable.ic_heart_line);
+                realm.beginTransaction();
+                like.deleteFromRealm();
+                realm.commitTransaction();
+//                holder.barLikes.setText(String.valueOf(likes-1));
+            }
+            notifyDataSetChanged();
         });
-
-
-        // initial
-//        holder.addToFavoriteButton.setImageResource(
-//                isFavorite ? android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off
-//        );
-
-        // after being clicked
-//        holder.addToFavoriteButton.setOnClickListener(v -> {
-//            if (isFavorite){
-//                holder.addToFavoriteButton.setImageResource(android.R.drawable.btn_star_big_off);
-//                realm.executeTransaction(r -> {
-//                    user.removeFromFavourites(bar);
-//                });
-//
-//            } else {
-//                holder.addToFavoriteButton.setImageResource(android.R.drawable.btn_star_big_on);
-//                realm.executeTransaction(r -> {
-//                    user.addToFavourites(bar);
-//                });
-//            }
-//        });
     }
 
 }
