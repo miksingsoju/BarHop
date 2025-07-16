@@ -212,9 +212,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openLogout() {
-        Intent intent = new Intent(this, MainActivity.class);
+        SharedPreferences.Editor authEdit = auth.edit();
+        authEdit.clear();
+        authEdit.apply();
+        Toast.makeText(this, "Logged Out ", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, Login.class);
         startActivity(intent);
-
     }
 
     private void openProfile() {
