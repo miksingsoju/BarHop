@@ -1,6 +1,7 @@
 package barhop.app.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -60,12 +61,22 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
         holder.barName.setText(bar.getName());
         holder.barAddress.setText(bar.getLocation());
 
+        holder.itemView.setOnClickListener(v -> {
+            Toast.makeText(activity, "Clicked: " + bar.getName(), Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(activity,BarDetail.class);
+            intent.putExtra("barUUID",bar.getUuid());
+            activity.startActivity(intent);
+
+        });
+
+
         Realm realm = Realm.getDefaultInstance();
         User user = realm.where(User.class).equalTo("uuid", userUUID).findFirst();
 
         Boolean isFavorite = (user.getFavoriteBars().contains(bar));
 
-        // initial
+        // initial look of the favourite button
         holder.addToFavoriteButton.setImageResource(
                 isFavorite ? android.R.drawable.btn_star_big_on : android.R.drawable.btn_star_big_off
         );
