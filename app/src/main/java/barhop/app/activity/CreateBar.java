@@ -64,7 +64,7 @@ public class CreateBar extends AppCompatActivity {
 
         createBarImageField = findViewById(R.id.createBarImageField);
 
-        createBarReturnButton = findViewById(R.id.createBarReturnButton);
+        createBarReturnButton = findViewById(R.id.userSettingsReturnButton);
         createBarAddButton = findViewById(R.id.createBarAddButton);
 
         createBarReturnButton.setOnClickListener(v -> returnLanding());
@@ -72,7 +72,7 @@ public class CreateBar extends AppCompatActivity {
     }
 
     public void returnLanding() {
-        Intent intent = new Intent(this, BarList.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 
     }
