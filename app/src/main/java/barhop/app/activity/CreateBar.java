@@ -24,7 +24,7 @@ import io.realm.Realm;
 
 public class CreateBar extends AppCompatActivity {
 
-    Button createBarReturnButton, createBarAddButton;
+    Button editBarReturnButton, createBarAddButton;
     EditText createBarNameField, createBarAddressField, createBarDescriptionField;
     ImageButton createBarImageField;
 
@@ -64,10 +64,10 @@ public class CreateBar extends AppCompatActivity {
 
         createBarImageField = findViewById(R.id.editBarImageField);
 
-        createBarReturnButton = findViewById(R.id.createBarReturnButton);
+        editBarReturnButton = findViewById(R.id.editBarReturnButton);
         createBarAddButton = findViewById(R.id.editEditButton);
 
-        createBarReturnButton.setOnClickListener(v -> returnLanding());
+        editBarReturnButton.setOnClickListener(v -> returnLanding());
         createBarAddButton.setOnClickListener(v -> addBar());
     }
 

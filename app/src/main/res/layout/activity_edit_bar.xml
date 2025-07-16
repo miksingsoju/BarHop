@@ -7,59 +7,21 @@
     android:layout_height="match_parent"
     tools:context=".activity.CreateBar">
 
-    <Button
-        android:id="@+id/createBarReturnButton"
-        style="@style/Widget.Material3.Button.IconButton.Filled"
-        android:layout_width="83dp"
-        android:layout_height="48dp"
-        android:text="Return"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.043"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
-
-    <Button
-        android:id="@+id/editBarReturnButton"
-        style="@style/Widget.Material3.Button.IconButton.Filled"
-        android:layout_width="83dp"
-        android:layout_height="48dp"
-        android:text="Return"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.043"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
-
-
-    <Button
-        android:id="@+id/createBarReturnButton"
-        style="@style/Widget.Material3.Button.IconButton.Filled"
-        android:layout_width="83dp"
-        android:layout_height="48dp"
-        android:text="Return"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.043"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
-
 
     <TextView
         android:id="@+id/createBarLabel"
         android:layout_width="259dp"
         android:layout_height="68dp"
+        android:layout_marginEnd="136dp"
+        android:layout_marginBottom="580dp"
         android:text="Edit Bar"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/createBarReturnButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/createBarReturnButton"
-        app:layout_constraintTop_toBottomOf="@+id/createBarReturnButton"
-        app:layout_constraintVertical_bias="0.028" />
+        app:layout_constraintStart_toStartOf="@+id/editBarReturnBtn"
+        app:layout_constraintTop_toBottomOf="@+id/editBarReturnBtn"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
         android:id="@+id/createBarImageField"
@@ -126,16 +88,16 @@
         android:text="Add Bar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/createBarDescriptionField"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/createBarDescriptionField"
         app:layout_constraintTop_toBottomOf="@+id/createBarDescriptionField"
-        app:layout_constraintVertical_bias="0.26" />
+        app:layout_constraintVertical_bias="0.438" />
 
     <TextView
         android:id="@+id/createBarNameLabel"
         android:layout_width="88dp"
         android:layout_height="25dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="24dp"
         android:text="Bar Name"
         app:layout_constraintEnd_toEndOf="@+id/createBarImageField"
         app:layout_constraintHorizontal_bias="0.222"
@@ -163,5 +125,17 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/createBarAddressField"
         app:layout_constraintTop_toBottomOf="@+id/createBarAddressField" />
+
+    <Button
+        android:id="@+id/editBarReturnBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Return Home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
