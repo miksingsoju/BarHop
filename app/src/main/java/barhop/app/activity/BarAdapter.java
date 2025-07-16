@@ -61,6 +61,9 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
         Bar bar = getItem(position);
         if (bar == null) return;
 
+        realm = Realm.getDefaultInstance();
+
+
         User user = realm.where(User.class).equalTo("uuid", userUUID).findFirst();
         if (user == null) return;
 
@@ -74,9 +77,6 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
             activity.startActivity(intent);
         });
 
-        Realm realm = Realm.getDefaultInstance();
-        User user = realm.where(User.class).equalTo("uuid", userUUID).findFirst();
-        realm = Realm.getDefaultInstance();
         // Boolean isFavorite = (user.getFavoriteBars().contains(bar));
 
         holder.likeButton.setOnClickListener(v -> {
