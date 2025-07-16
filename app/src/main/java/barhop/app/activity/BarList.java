@@ -30,7 +30,7 @@ public class BarList extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        init();
+        initBarList();
     }
 
     RecyclerView recyclerView;
@@ -41,7 +41,7 @@ public class BarList extends AppCompatActivity {
 
     SharedPreferences auth;
 
-    public void init()
+    public void initBarList()
     {
         recyclerView = findViewById(R.id.recyclerView);
         barName = findViewById(R.id.barName);
