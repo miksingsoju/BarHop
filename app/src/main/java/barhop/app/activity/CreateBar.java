@@ -66,7 +66,7 @@ public class CreateBar extends AppCompatActivity {
     }
 
     public void returnLanding() {
-        Intent intent = new Intent(this, BarList.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 
     }
@@ -107,5 +107,6 @@ public class CreateBar extends AppCompatActivity {
             Toast.makeText(this, "Error saving bar", Toast.LENGTH_LONG).show();
         }
     }
+
 
 }

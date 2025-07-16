@@ -55,7 +55,7 @@ public class UserSettings extends AppCompatActivity {
     }
 
     public void ReturnHome() {
-        Intent intent = new Intent(this, BarList.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
