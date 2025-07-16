@@ -1,5 +1,6 @@
 package barhop.app.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -33,6 +34,8 @@ public class CreateBar extends AppCompatActivity {
 
     User owner;
 
+    SharedPreferences auth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +51,11 @@ public class CreateBar extends AppCompatActivity {
 
     public void initViews() {
         realm = Realm.getDefaultInstance();
+        auth = getSharedPreferences("auth",MODE_PRIVATE);
         newBar = new Bar();
-        String ownerUUID = getIntent().getStringExtra("uuid");
+
+        String ownerUUID = auth.getString("uuid","");
+
         owner = realm.where(User.class).equalTo("uuid",ownerUUID).findFirst();
 
         createBarNameField = findViewById(R.id.editBarNameField);
@@ -87,7 +93,6 @@ public class CreateBar extends AppCompatActivity {
             Toast.makeText(this, "This bar name is already taken.", Toast.LENGTH_LONG).show();
             return;
         }
-
 
         newBar.setName(name);
         newBar.setLocation(address);

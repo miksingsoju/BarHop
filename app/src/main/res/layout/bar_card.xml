@@ -20,6 +20,7 @@
         android:id="@+id/barName"
         android:layout_width="100dp"
         android:layout_height="20dp"
+        android:layout_marginStart="32dp"
         android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView" />
@@ -33,5 +34,25 @@
         app:layout_constraintEnd_toEndOf="@+id/barName"
         app:layout_constraintStart_toStartOf="@+id/barName"
         app:layout_constraintTop_toBottomOf="@+id/barName" />
+
+    <ImageButton
+        android:id="@+id/addToFavoriteButton"
+        android:layout_width="29dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/barAddress"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/btn_star_big_off" />
+
+    <ImageButton
+        android:id="@+id/editBarButton"
+        android:layout_width="30dp"
+        android:layout_height="46dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/addToFavoriteButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.488"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package barhop.app.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -29,19 +30,21 @@ public class BarList extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        init();
+        initBarList();
     }
 
     RecyclerView recyclerView;
 
-    TextView nameView;
+    TextView barName;
 
     Realm realm;
 
-    public void init()
+    SharedPreferences auth;
+
+    public void initBarList()
     {
         recyclerView = findViewById(R.id.recyclerView);
-        nameView = findViewById(R.id.barName);
+        barName = findViewById(R.id.barName);
 
         // initialize RecyclerView
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -50,12 +53,15 @@ public class BarList extends AppCompatActivity {
 
         // initialize Realm
         realm = Realm.getDefaultInstance();
+        auth = getSharedPreferences("auth", MODE_PRIVATE);
+
+        String userUuid = auth.getString("uuid","");
 
         // query the things to display
         RealmResults<Bar> list = realm.where(Bar.class).findAll();
 
         // initialize Adapter
-        BarAdapter adapter = new BarAdapter(this, list, true);
+        BarAdapter adapter = new BarAdapter(this,  userUuid, list, true);
         recyclerView.setAdapter(adapter);
     }
 
