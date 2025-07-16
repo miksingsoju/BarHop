@@ -87,6 +87,11 @@ public class CreateBar extends AppCompatActivity {
             return;
         }
 
+        if (address.isEmpty()) {
+            Toast.makeText(this, "Bar must have a location", Toast.LENGTH_LONG).show();
+            return;
+
+        }
         // Check if user already exists
         Bar existingBar = realm.where(Bar.class).equalTo("name", name).findFirst();
         if (existingBar != null) {

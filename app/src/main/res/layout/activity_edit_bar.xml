@@ -20,19 +20,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023" />
 
-    <TextView
-        android:id="@+id/editBarLabel"
-        android:layout_width="259dp"
-        android:layout_height="68dp"
-        android:text="Edit bar *name of bar dapat na gustong i edit"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/createBarReturnButton"
-        app:layout_constraintHorizontal_bias="0.008"
-        app:layout_constraintStart_toStartOf="@+id/createBarReturnButton"
-        app:layout_constraintTop_toBottomOf="@+id/createBarReturnButton"
-        app:layout_constraintVertical_bias="0.028" />
-
     <Button
         android:id="@+id/editBarReturnButton"
         style="@style/Widget.Material3.Button.IconButton.Filled"
@@ -47,109 +34,6 @@
         app:layout_constraintVertical_bias="0.023" />
 
 
-    <ImageButton
-        android:id="@+id/editBarImageField"
-        android:layout_width="97dp"
-        android:layout_height="58dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/editBarPicLabel"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editBarPicLabel"
-        app:layout_constraintTop_toBottomOf="@+id/editBarPicLabel"
-        app:layout_constraintVertical_bias="0.021"
-        app:srcCompat="@android:drawable/ic_menu_gallery" />
-
-    <TextView
-        android:id="@+id/editBarPicLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Bar Photos"
-        app:layout_constraintEnd_toEndOf="@+id/editBarLabel"
-        app:layout_constraintHorizontal_bias="0.051"
-        app:layout_constraintStart_toStartOf="@+id/editBarLabel"
-        app:layout_constraintTop_toBottomOf="@+id/editBarLabel" />
-
-    <EditText
-        android:id="@+id/editBarNameField"
-        android:layout_width="356dp"
-        android:layout_height="55dp"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Bar Name"
-        app:layout_constraintEnd_toEndOf="@+id/edirBarNameLabel"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/edirBarNameLabel"
-        app:layout_constraintTop_toBottomOf="@+id/edirBarNameLabel" />
-
-    <EditText
-        android:id="@+id/editBarAddressField"
-        android:layout_width="356dp"
-        android:layout_height="55dp"
-        android:ems="10"
-        android:hint="Edit BAr Address"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="@+id/editBarAddressLabel"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editBarAddressLabel"
-        app:layout_constraintTop_toBottomOf="@+id/editBarAddressLabel" />
-
-    <EditText
-        android:id="@+id/editDescriptionField"
-        android:layout_width="354dp"
-        android:layout_height="124dp"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Bar Description"
-        app:layout_constraintEnd_toEndOf="@+id/editDescriptionLabel"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editDescriptionLabel"
-        app:layout_constraintTop_toBottomOf="@+id/editDescriptionLabel" />
-
-    <Button
-        android:id="@+id/editEditButton"
-        android:layout_width="359dp"
-        android:layout_height="82dp"
-        android:text="Confirm Edit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/editDescriptionField"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="@+id/editDescriptionField"
-        app:layout_constraintTop_toBottomOf="@+id/editDescriptionField"
-        app:layout_constraintVertical_bias="0.26" />
-
-    <TextView
-        android:id="@+id/edirBarNameLabel"
-        android:layout_width="132dp"
-        android:layout_height="22dp"
-        android:layout_marginTop="12dp"
-        android:text="Edit Bar Name"
-        app:layout_constraintEnd_toEndOf="@+id/editBarImageField"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editBarImageField"
-        app:layout_constraintTop_toBottomOf="@+id/editBarImageField" />
-
-    <TextView
-        android:id="@+id/editBarAddressLabel"
-        android:layout_width="109dp"
-        android:layout_height="22dp"
-        android:layout_marginTop="12dp"
-        android:text="New Bar Address"
-        app:layout_constraintEnd_toEndOf="@+id/editBarNameField"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editBarNameField"
-        app:layout_constraintTop_toBottomOf="@+id/editBarNameField" />
-
-    <TextView
-        android:id="@+id/editDescriptionLabel"
-        android:layout_width="104dp"
-        android:layout_height="22dp"
-        android:layout_marginTop="20dp"
-        android:text="Bar Description"
-        app:layout_constraintEnd_toEndOf="@+id/editBarAddressField"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editBarAddressField"
-        app:layout_constraintTop_toBottomOf="@+id/editBarAddressField" />
-
     <Button
         android:id="@+id/createBarReturnButton"
         style="@style/Widget.Material3.Button.IconButton.Filled"
@@ -163,6 +47,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023" />
 
+
     <TextView
         android:id="@+id/createBarLabel"
         android:layout_width="259dp"
@@ -171,24 +56,10 @@
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/createBarReturnButton"
-        app:layout_constraintHorizontal_bias="0.008"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/createBarReturnButton"
         app:layout_constraintTop_toBottomOf="@+id/createBarReturnButton"
         app:layout_constraintVertical_bias="0.028" />
-
-    <Button
-        android:id="@+id/userSettingsReturnButton"
-        style="@style/Widget.Material3.Button.IconButton.Filled"
-        android:layout_width="83dp"
-        android:layout_height="48dp"
-        android:text="Return"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.043"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
-
 
     <ImageButton
         android:id="@+id/createBarImageField"
@@ -214,11 +85,11 @@
 
     <EditText
         android:id="@+id/createBarNameField"
-        android:layout_width="356dp"
-        android:layout_height="55dp"
+        android:layout_width="357dp"
+        android:layout_height="57dp"
         android:ems="10"
-        android:inputType="text"
         android:hint="Bar Name"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="@+id/createBarNameLabel"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/createBarNameLabel"
