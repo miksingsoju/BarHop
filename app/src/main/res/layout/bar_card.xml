@@ -46,18 +46,6 @@
         app:layout_constraintTop_toTopOf="@+id/barAddress"
         app:srcCompat="@drawable/ic_location" />
 
-    <ImageButton
-        android:id="@+id/likeButton"
-        android:layout_width="27dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:adjustViewBounds="false"
-        android:backgroundTint="#00FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/heart" />
-
     <TextView
         android:id="@+id/barLikes"
         android:layout_width="wrap_content"
@@ -70,5 +58,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barAddress" />
+
+    <ImageButton
+        android:id="@+id/likeButton"
+        android:layout_width="27dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:adjustViewBounds="false"
+        android:backgroundTint="#00FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/heart" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

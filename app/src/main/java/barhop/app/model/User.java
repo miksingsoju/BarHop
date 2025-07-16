@@ -43,10 +43,10 @@ public class User extends RealmObject {
         public RealmResults<Bar> getBarsOwned() {return barsOwned;}
 
     // FAVOURITE BARS
-        private RealmList<Bar> favouriteBars  = new RealmList<>();
-        public RealmList<Bar> getFavouriteBars(){ return favouriteBars;}
-        public void addToFavourites(Bar bar){ favouriteBars.add(bar);}
-        public void removeFromFavourites(Bar bar){ favouriteBars.remove(bar);}
+        private RealmList<Bar> favoriteBars  = new RealmList<>();
+        public RealmList<Bar> getFavoriteBars(){ return favoriteBars;}
+        public void addToFavourites(Bar bar){ favoriteBars.add(bar);}
+        public void removeFromFavourites(Bar bar){ favoriteBars.remove(bar);}
 
     // COMMENT
         @LinkingObjects("commenter")

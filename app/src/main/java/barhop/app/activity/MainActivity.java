@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
     TextView mainText;
     BottomNavigationView bottomNav;
 
-
     /**
      * This method initializes the views needed.
      */
@@ -97,11 +96,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void barList(){
         Intent intent = new Intent(this, BarList.class);
+        String userUuid = getIntent().getStringExtra("uuid");
+        intent.putExtra("uuid", userUuid);
         startActivity(intent);
     }
 
     private void favoriteBars(){
-
+        Intent intent = new Intent(this, FavoriteBars.class);
+        String userUuid = getIntent().getStringExtra("uuid");
+        intent.putExtra("uuid", userUuid);
+        startActivity(intent);
     }
 
     private void createBar(){
