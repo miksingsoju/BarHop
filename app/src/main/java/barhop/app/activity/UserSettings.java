@@ -44,7 +44,7 @@ public class UserSettings extends AppCompatActivity {
 
         userSettingsImage = findViewById(R.id.userSettingsImage);
 
-        userSettingsReturnButton = findViewById(R.id.userSettingsReturnButton);
+        userSettingsReturnButton = findViewById(R.id.editBarReturnButton);
         userSettingsEditNameButton = findViewById(R.id.userSettingsEditNameButton);
         //userSettingsEditPasswordButton = findViewById(R.id.userSettingsEditPasswordButton);
 

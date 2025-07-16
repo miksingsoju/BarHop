@@ -8,7 +8,7 @@
     tools:context=".activity.UserSettings">
 
     <Button
-        android:id="@+id/userSettingsReturnButton"
+        android:id="@+id/editBarReturnButton"
         style="@style/Widget.Material3.Button.IconButton.Filled"
         android:layout_width="83dp"
         android:layout_height="48dp"
@@ -68,7 +68,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.115"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userSettingsReturnButton" />
+        app:layout_constraintTop_toBottomOf="@+id/editBarReturnButton" />
 
     <ImageView
         android:id="@+id/userSettingsEditNameButton"

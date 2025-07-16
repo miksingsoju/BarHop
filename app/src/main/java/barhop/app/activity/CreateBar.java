@@ -52,14 +52,14 @@ public class CreateBar extends AppCompatActivity {
         String ownerUUID = getIntent().getStringExtra("uuid");
         owner = realm.where(User.class).equalTo("uuid",ownerUUID).findFirst();
 
-        createBarNameField = findViewById(R.id.createBarNameField);
-        createBarAddressField = findViewById(R.id.createBarAddressField);
-        createBarDescriptionField = findViewById(R.id.createBarDescriptionField);
+        createBarNameField = findViewById(R.id.editBarNameField);
+        createBarAddressField = findViewById(R.id.editBarAddressField);
+        createBarDescriptionField = findViewById(R.id.editDescriptionField);
 
-        createBarImageField = findViewById(R.id.createBarImageField);
+        createBarImageField = findViewById(R.id.editBarImageField);
 
         createBarReturnButton = findViewById(R.id.createBarReturnButton);
-        createBarAddButton = findViewById(R.id.createBarAddButton);
+        createBarAddButton = findViewById(R.id.editEditButton);
 
         createBarReturnButton.setOnClickListener(v -> returnLanding());
         createBarAddButton.setOnClickListener(v -> addBar());

@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.023" />
 
     <TextView
-        android:id="@+id/createBarLabel"
+        android:id="@+id/editBarLabel"
         android:layout_width="259dp"
         android:layout_height="68dp"
         android:text="Add a Bar"
@@ -34,7 +34,7 @@
         app:layout_constraintVertical_bias="0.028" />
 
     <Button
-        android:id="@+id/userSettingsReturnButton"
+        android:id="@+id/editBarReturnButton"
         style="@style/Widget.Material3.Button.IconButton.Filled"
         android:layout_width="83dp"
         android:layout_height="48dp"
@@ -48,106 +48,106 @@
 
 
     <ImageButton
-        android:id="@+id/createBarImageField"
+        android:id="@+id/editBarImageField"
         android:layout_width="97dp"
         android:layout_height="58dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/createBarPicLabel"
+        app:layout_constraintEnd_toEndOf="@+id/editBarPicLabel"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/createBarPicLabel"
-        app:layout_constraintTop_toBottomOf="@+id/createBarPicLabel"
+        app:layout_constraintStart_toStartOf="@+id/editBarPicLabel"
+        app:layout_constraintTop_toBottomOf="@+id/editBarPicLabel"
         app:layout_constraintVertical_bias="0.021"
         app:srcCompat="@android:drawable/ic_menu_gallery" />
 
     <TextView
-        android:id="@+id/createBarPicLabel"
+        android:id="@+id/editBarPicLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Bar Photos"
-        app:layout_constraintEnd_toEndOf="@+id/createBarLabel"
+        app:layout_constraintEnd_toEndOf="@+id/editBarLabel"
         app:layout_constraintHorizontal_bias="0.051"
-        app:layout_constraintStart_toStartOf="@+id/createBarLabel"
-        app:layout_constraintTop_toBottomOf="@+id/createBarLabel" />
+        app:layout_constraintStart_toStartOf="@+id/editBarLabel"
+        app:layout_constraintTop_toBottomOf="@+id/editBarLabel" />
 
     <EditText
-        android:id="@+id/createBarNameField"
+        android:id="@+id/editBarNameField"
         android:layout_width="356dp"
         android:layout_height="55dp"
         android:ems="10"
         android:inputType="text"
         android:hint="Bar Name"
-        app:layout_constraintEnd_toEndOf="@+id/createBarNameLabel"
+        app:layout_constraintEnd_toEndOf="@+id/edirBarNameLabel"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/createBarNameLabel"
-        app:layout_constraintTop_toBottomOf="@+id/createBarNameLabel" />
+        app:layout_constraintStart_toStartOf="@+id/edirBarNameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/edirBarNameLabel" />
 
     <EditText
-        android:id="@+id/createBarAddressField"
+        android:id="@+id/editBarAddressField"
         android:layout_width="356dp"
         android:layout_height="55dp"
         android:ems="10"
         android:inputType="text"
         android:hint="Bar Address"
-        app:layout_constraintEnd_toEndOf="@+id/createBarAddressLabel"
+        app:layout_constraintEnd_toEndOf="@+id/editBarAddressLabel"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/createBarAddressLabel"
-        app:layout_constraintTop_toBottomOf="@+id/createBarAddressLabel" />
+        app:layout_constraintStart_toStartOf="@+id/editBarAddressLabel"
+        app:layout_constraintTop_toBottomOf="@+id/editBarAddressLabel" />
 
     <EditText
-        android:id="@+id/createBarDescriptionField"
+        android:id="@+id/editDescriptionField"
         android:layout_width="354dp"
         android:layout_height="124dp"
         android:ems="10"
         android:inputType="text"
         android:hint="Bar Description"
-        app:layout_constraintEnd_toEndOf="@+id/createBarDescriptionLabel"
+        app:layout_constraintEnd_toEndOf="@+id/editDescriptionLabel"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/createBarDescriptionLabel"
-        app:layout_constraintTop_toBottomOf="@+id/createBarDescriptionLabel" />
+        app:layout_constraintStart_toStartOf="@+id/editDescriptionLabel"
+        app:layout_constraintTop_toBottomOf="@+id/editDescriptionLabel" />
 
     <Button
-        android:id="@+id/createBarAddButton"
+        android:id="@+id/editEditButton"
         android:layout_width="359dp"
         android:layout_height="82dp"
         android:text="Add Bar"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/createBarDescriptionField"
+        app:layout_constraintEnd_toEndOf="@+id/editDescriptionField"
         app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="@+id/createBarDescriptionField"
-        app:layout_constraintTop_toBottomOf="@+id/createBarDescriptionField"
+        app:layout_constraintStart_toStartOf="@+id/editDescriptionField"
+        app:layout_constraintTop_toBottomOf="@+id/editDescriptionField"
         app:layout_constraintVertical_bias="0.26" />
 
     <TextView
-        android:id="@+id/createBarNameLabel"
+        android:id="@+id/edirBarNameLabel"
         android:layout_width="88dp"
         android:layout_height="25dp"
         android:layout_marginTop="12dp"
         android:text="Bar Name"
-        app:layout_constraintEnd_toEndOf="@+id/createBarImageField"
+        app:layout_constraintEnd_toEndOf="@+id/editBarImageField"
         app:layout_constraintHorizontal_bias="0.222"
-        app:layout_constraintStart_toStartOf="@+id/createBarImageField"
-        app:layout_constraintTop_toBottomOf="@+id/createBarImageField" />
+        app:layout_constraintStart_toStartOf="@+id/editBarImageField"
+        app:layout_constraintTop_toBottomOf="@+id/editBarImageField" />
 
     <TextView
-        android:id="@+id/createBarAddressLabel"
+        android:id="@+id/editBarAddressLabel"
         android:layout_width="88dp"
         android:layout_height="25dp"
         android:layout_marginTop="12dp"
         android:text="Bar Address"
-        app:layout_constraintEnd_toEndOf="@+id/createBarNameField"
+        app:layout_constraintEnd_toEndOf="@+id/editBarNameField"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/createBarNameField"
-        app:layout_constraintTop_toBottomOf="@+id/createBarNameField" />
+        app:layout_constraintStart_toStartOf="@+id/editBarNameField"
+        app:layout_constraintTop_toBottomOf="@+id/editBarNameField" />
 
     <TextView
-        android:id="@+id/createBarDescriptionLabel"
+        android:id="@+id/editDescriptionLabel"
         android:layout_width="104dp"
         android:layout_height="22dp"
         android:layout_marginTop="20dp"
         android:text="Bar Description"
-        app:layout_constraintEnd_toEndOf="@+id/createBarAddressField"
+        app:layout_constraintEnd_toEndOf="@+id/editBarAddressField"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/createBarAddressField"
-        app:layout_constraintTop_toBottomOf="@+id/createBarAddressField" />
+        app:layout_constraintStart_toStartOf="@+id/editBarAddressField"
+        app:layout_constraintTop_toBottomOf="@+id/editBarAddressField" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
