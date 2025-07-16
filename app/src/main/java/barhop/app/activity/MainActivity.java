@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import barhop.app.R;
 
@@ -20,8 +22,10 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
+import barhop.app.model.Bar;
 import barhop.app.model.User;
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * This is the first thing the user sees when opening the app (even without logging in)
@@ -85,6 +89,10 @@ public class MainActivity extends AppCompatActivity {
 
     SharedPreferences auth;
 
+    RecyclerView recyclerView;
+
+    TextView barName;
+
     /**
      * This method initializes the views needed.
      */
@@ -99,14 +107,32 @@ public class MainActivity extends AppCompatActivity {
 
         mainText = findViewById(R.id.mainText);
 
-
-
         //loginButton.setOnClickListener(view -> login());
         //favoriteBarsButton.setOnClickListener(view -> favoriteBars());
         //createBarButton.setOnClickListener(view -> createBar());
         //barListButton.setOnClickListener(view -> barList());
-
+        initBarList();
         initLoggedOut(); // THIS MANAGES VISIBILITY
+    }
+
+    public void initBarList()
+    {
+        recyclerView = findViewById(R.id.recyclerView);
+        barName = findViewById(R.id.barName);
+
+        // initialize RecyclerView
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setLayoutManager(mLayoutManager);
+
+        String userUuid = auth.getString("uuid","");
+
+        // query the things to display
+        RealmResults<Bar> list = realm.where(Bar.class).findAll();
+
+        // initialize Adapter
+        BarAdapter adapter = new BarAdapter(this,  userUuid, list, true);
+        recyclerView.setAdapter(adapter);
     }
 
     /**
@@ -197,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openHome() {
         Toast.makeText(this, "Home clicked", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, BarList.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
