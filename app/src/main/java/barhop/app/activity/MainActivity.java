@@ -143,10 +143,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void barList(){
-        Intent intent = new Intent(this, BarList.class);
-        startActivity(intent);
-    }
+
 
     private void favoriteBars(){
         //Intent intent = new Intent(this, FavoriteBars.class);
@@ -227,17 +224,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void openBars() {
-        Toast.makeText(this, "Bars clicked", Toast.LENGTH_SHORT).show();
-        barList();
-        // Optional: open bar list screen
-        // startActivity(new Intent(this, BarListActivity.class));
-    }
 
-    private void userSettings(){
-        Intent intent = new Intent(this, UserSettings.class);
-        startActivity(intent);
-    }
+
 
     private void openLogin() {
         Intent intent = new Intent(this, Login.class);
