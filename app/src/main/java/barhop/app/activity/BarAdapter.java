@@ -5,12 +5,19 @@ import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 
 import barhop.app.model.Bar;
 import barhop.app.model.User;
@@ -26,6 +33,8 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
         TextView barName, barAddress, barLikes;
         ImageButton likeButton, editBarButton;
 
+        ImageView barPhoto;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             barName = itemView.findViewById(R.id.barName);
@@ -33,6 +42,7 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
             editBarButton = itemView.findViewById(R.id.editBarButton);
             barLikes = itemView.findViewById(R.id.barLikes);
             likeButton = itemView.findViewById(R.id.likeButton);
+            barPhoto = itemView.findViewById(R.id.barPhoto);
         }
     }
     Activity activity;
@@ -63,11 +73,23 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
         holder.barAddress.setText(bar.getLocation());
 
         holder.itemView.setOnClickListener(v -> {
-            Toast.makeText(activity, "Clicked: " + bar.getName(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(activity, BarDetail.class);
             intent.putExtra("barUUID", bar.getUuid());
             activity.startActivity(intent);
         });
+
+        // if you have more add here
+        File cacheDir = activity.getExternalCacheDir();
+        File photo = new File(cacheDir, bar.getUuid()+".jpeg");
+        if (photo.exists())
+        {
+            // this will put the image saved to the file system to the imageview
+            Picasso.get()
+                    .load(photo)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .into(holder.barPhoto);
+        }
 
         Realm realm = Realm.getDefaultInstance();
         User user = realm.where(User.class).equalTo("uuid", userUUID).findFirst();

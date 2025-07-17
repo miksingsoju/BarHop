@@ -14,8 +14,17 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import android.content.Intent;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import barhop.app.R;
 import barhop.app.model.Bar;
@@ -75,7 +84,16 @@ public class EditBar extends AppCompatActivity {
         editBarNameField.setText(barToEdit.getName());
         editBarAddressField.setText(barToEdit.getDescription());
         editBarDescriptionField.setText(barToEdit.getDescription());
+        editBarImageField.setOnClickListener(view -> takePhoto());
 
+        File imageFile = new File(getExternalCacheDir(), barToEdit.getUuid() + ".jpeg");
+        if (imageFile.exists()) {
+            Picasso.get()
+                    .load(imageFile)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .into(editBarImageField);
+        }
     }
 
     public void returnLanding() {
@@ -93,8 +111,6 @@ public class EditBar extends AppCompatActivity {
             return;
         }
 
-
-
         try {
             realm.beginTransaction();
             
@@ -109,6 +125,66 @@ public class EditBar extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(this, "Error saving bar", Toast.LENGTH_LONG).show();
         }
+    }
+
+    public static int REQUEST_CODE_IMAGE_SCREEN = 0;
+
+    public void takePhoto()
+    {
+        Intent i = new Intent(this, ImageActivity.class);
+        startActivityForResult(i, REQUEST_CODE_IMAGE_SCREEN);
+    }
+
+    // SINCE WE USE startForResult(), code will trigger this once the next screen calls finish()
+    public void onActivityResult(int requestCode, int responseCode, Intent data)
+    {
+        super.onActivityResult(requestCode, responseCode, data);
+
+        if (requestCode==REQUEST_CODE_IMAGE_SCREEN)
+        {
+            if (responseCode==ImageActivity.RESULT_CODE_IMAGE_TAKEN)
+            {
+                // receieve the raw JPEG data from ImageActivity
+                // this can be saved to a file or save elsewhere like Realm or online
+                byte[] jpeg = data.getByteArrayExtra("rawJpeg");
+
+                try {
+                    // save rawImage to file
+                    File savedImage = saveFile(jpeg, barToEdit.getUuid()+".jpeg");  // WHERE TO SAVE
+
+                    // load file to the image view via picasso
+                    refreshImageView(editBarImageField, savedImage);
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private File saveFile(byte[] jpeg, String filename) throws IOException
+    {
+        // this is the root directory for the images
+        File getImageDir = getExternalCacheDir();
+
+        // just a sample, normally you have a diff image name each time
+        File savedImage = new File(getImageDir, filename);
+
+
+        FileOutputStream fos = new FileOutputStream(savedImage);
+        fos.write(jpeg);
+        fos.close();
+        return savedImage;
+    }
+
+    private void refreshImageView(ImageView imageView, File savedImage) {
+        // this will put the image saved to the file system to the imageview
+        Picasso.get()
+                .load(savedImage)
+                .networkPolicy(NetworkPolicy.NO_CACHE)
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .into(imageView);
     }
 
 }

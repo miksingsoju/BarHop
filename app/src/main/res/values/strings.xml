@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BarHop</string>
+    <string name="fileAuthority">barhop.app</string>
 </resources>
