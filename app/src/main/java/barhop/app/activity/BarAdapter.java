@@ -30,7 +30,6 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
             super(itemView);
             barName = itemView.findViewById(R.id.barName);
             barAddress = itemView.findViewById(R.id.barAddress);
-            editBarButton = itemView.findViewById(R.id.editBarButton);
             barLikes = itemView.findViewById(R.id.barLikes);
             likeButton = itemView.findViewById(R.id.likeButton);
         }
@@ -108,20 +107,6 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
             notifyDataSetChanged();
         });
 
-        boolean isOwner = bar.getOwner().equals(user);
-
-        if(isOwner){
-            holder.editBarButton.setVisibility(View.VISIBLE);
-        }else {
-            holder.editBarButton.setVisibility(View.GONE);
-        }
-
-        holder.editBarButton.setOnClickListener(view -> {
-            Toast.makeText(activity, "Clicked: " + bar.getName(), Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(activity, EditBar.class);
-            intent.putExtra("barUUID", bar.getUuid());
-            activity.startActivity(intent);
-        });
     }
 
 }

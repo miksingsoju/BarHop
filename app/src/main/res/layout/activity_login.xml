@@ -35,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/userInput" />
 
     <CheckBox
-        android:id="@+id/rememberCheckBox"
+        android:id="@+id/parentConstraint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
@@ -84,7 +84,7 @@
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/rememberCheckBox" />
+        app:layout_constraintTop_toBottomOf="@+id/parentConstraint" />
 
     <Button
         android:id="@+id/adminRegisterButton"
