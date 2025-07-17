@@ -25,11 +25,12 @@
         android:layout_width="185dp"
         android:layout_height="176dp"
         android:layout_marginTop="44dp"
+        android:icon="@drawable/ic_profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.136"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userSettingsLabel"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:srcCompat="@drawable/ic_profile" />
 
     <EditText
         android:id="@+id/userSettingsDisplayName"
@@ -71,7 +72,7 @@
         app:layout_constraintTop_toBottomOf="@+id/userSettingsReturnButton" />
 
     <ImageView
-        android:id="@+id/userSettingsEditNameButton"
+        android:id="@+id/userEditButton"
         android:layout_width="31dp"
         android:layout_height="27dp"
         app:layout_constraintBottom_toBottomOf="@+id/userSettingsDisplayName"
@@ -80,17 +81,6 @@
         app:layout_constraintStart_toEndOf="@+id/userSettingsDisplayName"
         app:layout_constraintTop_toBottomOf="@+id/userSettingsImage"
         app:layout_constraintVertical_bias="0.509"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="31dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="43dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/userSettingsPasswordField"
-        app:layout_constraintTop_toBottomOf="@+id/userSettingsEditNameButton"
         app:srcCompat="@android:drawable/ic_menu_edit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
