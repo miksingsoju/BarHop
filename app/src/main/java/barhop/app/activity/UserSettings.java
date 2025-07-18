@@ -18,13 +18,21 @@ import androidx.core.view.WindowInsetsCompat;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import barhop.app.R;
 import barhop.app.model.User;
 import io.realm.Realm;
 
 public class UserSettings extends AppCompatActivity {
 
-    TextView userSettingsLabel;
+    TextView userSettingsLabel, userSettingsPicLabel, userSettingsConfirmLabel;
     EditText userSettingsDisplayName, userSettingsPasswordField;
     ImageView userSettingsImage , userEditButton;
     Button userSettingsReturnButton;
@@ -53,7 +61,8 @@ public class UserSettings extends AppCompatActivity {
         String userUUID = auth.getString("uuid","");
         user = realm.where(User.class).equalTo("uuid",userUUID).findFirst();
 
-
+        userSettingsConfirmLabel = findViewById(R.id.userSettingsConfirmLabel);
+        userSettingsPicLabel = findViewById(R.id.userSettingsPicLabel);
         userSettingsLabel = findViewById(R.id.userSettingsLabel);
         userSettingsDisplayName = findViewById(R.id.userSettingsDisplayName);
         userSettingsPasswordField = findViewById(R.id.userSettingsPasswordField);
@@ -63,9 +72,18 @@ public class UserSettings extends AppCompatActivity {
         userSettingsReturnButton = findViewById(R.id.userSettingsReturnButton);
         userEditButton = findViewById(R.id.userEditButton);
 
-
+        userSettingsImage.setOnClickListener(v -> takePhoto());
         userSettingsReturnButton.setOnClickListener(v -> ReturnHome());
         userEditButton.setOnClickListener(v -> EditCreds());
+
+        File imageFile = new File(getExternalCacheDir(), user.getUuid() + ".jpeg");
+        if (imageFile.exists()) {
+            Picasso.get()
+                    .load(imageFile)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .into(userSettingsImage);
+        }
 
 
     }
@@ -100,7 +118,56 @@ public class UserSettings extends AppCompatActivity {
 
     }
 
-    public void EditPassword() {
-        // Please do edit password stuff here
+    public static final int REQUEST_CODE_IMAGE_SCREEN = 0;
+    public void takePhoto() {
+        Intent i = new Intent(this, ImageActivity.class);
+        startActivityForResult(i, REQUEST_CODE_IMAGE_SCREEN);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_IMAGE_SCREEN) {
+            if (resultCode == ImageActivity.RESULT_CODE_IMAGE_TAKEN) {
+                byte[] jpeg = data.getByteArrayExtra("rawJpeg");
+
+                try {
+                    File savedImage = saveFile(jpeg, user.getUuid() + ".jpeg");
+
+                    // Save path in Realm
+                    realm.beginTransaction();
+                    user.setDisplayPicture(savedImage.getAbsolutePath());
+                    realm.commitTransaction();
+
+                    refreshImageView(userSettingsImage, savedImage);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private File saveFile(byte[] jpeg, String filename) throws IOException {
+        File getImageDir = getExternalCacheDir();
+        File savedImage = new File(getImageDir, filename);
+        FileOutputStream fos = new FileOutputStream(savedImage);
+        fos.write(jpeg);
+        fos.close();
+        return savedImage;
+    }
+
+    private void refreshImageView(ImageView imageView, File savedImage) {
+        Picasso.get()
+                .load(savedImage)
+                .networkPolicy(NetworkPolicy.NO_CACHE)
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .into(imageView);
+    }
+
+
+
+
+
 }
