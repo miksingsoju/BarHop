@@ -33,9 +33,7 @@ public class UserRegistration extends AppCompatActivity {
         initViews();
     }
 
-    EditText userInput;
-    EditText passwordInput;
-    EditText confirmPasswordInput;
+    EditText userInput, passwordInput, confirmPasswordInput, otpInput;
     Button saveButton;
     Button cancelButton;
 
@@ -49,6 +47,7 @@ public class UserRegistration extends AppCompatActivity {
 
         userInput = findViewById(R.id.userInput);
         passwordInput = findViewById(R.id.passwordInput);
+
         confirmPasswordInput = findViewById(R.id.confirmPasswordInput);
         saveButton = findViewById(R.id.saveButton);
         cancelButton = findViewById(R.id.cancelButton);
@@ -72,6 +71,7 @@ public class UserRegistration extends AppCompatActivity {
         String password = passwordInput.getText().toString();
         String confirmPassword = confirmPasswordInput.getText().toString();
 
+
         if (name.isEmpty()) {
             Toast.makeText(this, "Name must not be blank", Toast.LENGTH_LONG).show();
             return;
@@ -81,6 +81,10 @@ public class UserRegistration extends AppCompatActivity {
             Toast.makeText(this, "Confirm password does not match.", Toast.LENGTH_LONG).show();
             return;
         }
+
+
+
+
 
         // Check if user already exists
         User existingUser = realm.where(User.class).equalTo("displayName", name).findFirst();

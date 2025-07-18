@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/barPhoto"
         android:layout_width="0dp"
         android:layout_height="240dp"
         android:adjustViewBounds="false"
@@ -26,8 +26,8 @@
         android:text="Bar Name"
         android:textColor="@color/white"
         android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintStart_toStartOf="@+id/barPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/barPhoto" />
 
     <TextView
         android:id="@+id/barAddress"

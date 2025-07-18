@@ -1,5 +1,6 @@
 package barhop.app.activity;
 
+import android.Manifest;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -19,6 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.listener.multi.BaseMultiplePermissionsListener;
 
 
 import barhop.app.model.Bar;
@@ -76,9 +80,46 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
             return insets;
         });
-        init();
-        isUserLoggedIn();
+        checkPermissions();
+    }
 
+    public void checkPermissions()
+    {
+
+        // REQUEST PERMISSIONS for Android 6+
+        // THESE PERMISSIONS SHOULD MATCH THE ONES IN THE MANIFEST
+        Dexter.withContext(this)
+                .withPermissions(
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.CAMERA
+
+                )
+
+                .withListener(new BaseMultiplePermissionsListener()
+                {
+                    public void onPermissionsChecked(MultiplePermissionsReport report)
+                    {
+                        if (report.areAllPermissionsGranted())
+                        {
+                            // all permissions accepted proceed
+                            init();
+                            isUserLoggedIn();
+                        }
+                        else
+                        {
+                            // notify about permissions
+                            toastRequirePermissions();
+                        }
+                    }
+                })
+                .check();
+    }
+
+    public void toastRequirePermissions()
+    {
+        Toast.makeText(this, "You must provide permissions for app to run", Toast.LENGTH_LONG).show();
+        finish();
     }
 
     Realm realm;
@@ -143,10 +184,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void barList(){
-        Intent intent = new Intent(this, BarList.class);
-        startActivity(intent);
-    }
+
 
     private void favoriteBars(){
         //Intent intent = new Intent(this, FavoriteBars.class);
@@ -227,17 +265,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void openBars() {
-        Toast.makeText(this, "Bars clicked", Toast.LENGTH_SHORT).show();
-        barList();
-        // Optional: open bar list screen
-        // startActivity(new Intent(this, BarListActivity.class));
-    }
 
-    private void userSettings(){
-        Intent intent = new Intent(this, UserSettings.class);
-        startActivity(intent);
-    }
+
 
     private void openLogin() {
         Intent intent = new Intent(this, Login.class);

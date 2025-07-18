@@ -36,7 +36,7 @@ public class AdminRegistration extends AppCompatActivity {
 
     EditText userInput;
     EditText passwordInput;
-    EditText confirmPasswordInput;
+    EditText confirmPasswordInput, otpInput;
     Button saveButton;
     Button cancelButton;
 
@@ -55,7 +55,7 @@ public class AdminRegistration extends AppCompatActivity {
         confirmPasswordInput = findViewById(R.id.confirmPasswordInput);
         saveButton = findViewById(R.id.saveButton);
         cancelButton = findViewById(R.id.cancelButton);
-
+        otpInput = findViewById(R.id.otpInput);
         saveButton.setOnClickListener(v -> save());
 
         cancelButton.setOnClickListener(v -> cancel());
@@ -74,6 +74,8 @@ public class AdminRegistration extends AppCompatActivity {
         String name = userInput.getText().toString().trim();
         String password = passwordInput.getText().toString();
         String confirmPassword = confirmPasswordInput.getText().toString();
+        String otp = otpInput.getText().toString().trim();
+        String adminOtp = "LOVERBOY";
 
         if (name.isEmpty()) {
             Toast.makeText(this, "Name must not be blank", Toast.LENGTH_LONG).show();
@@ -82,6 +84,11 @@ public class AdminRegistration extends AppCompatActivity {
 
         if (!password.equals(confirmPassword)) {
             Toast.makeText(this, "Confirm password does not match.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (!otp.equals(adminOtp)) {
+            Toast.makeText(this, "Invalid OTP.", Toast.LENGTH_LONG).show();
             return;
         }
 
