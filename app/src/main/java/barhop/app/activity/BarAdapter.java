@@ -85,7 +85,7 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
 
         holder.barName.setText(bar.getName());
         holder.barAddress.setText(bar.getLocation());
-        holder.barLikes.setText(String.valueOf(likes));
+        holder.barLikes.setText(String.valueOf(likes) + " Likes");
         holder.likeButton.setImageResource(
                 like == null ? R.drawable.ic_heart_line : R.drawable.ic_heart_fill
         );
