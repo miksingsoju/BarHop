@@ -54,9 +54,9 @@ public class User extends RealmObject {
         public RealmResults<Comment> getComments() { return comments;}
 
     // LIKE
-//        @LinkingObjects("user")
-//        private final RealmResults<Like> likes = null;
-//        public RealmResults<Like> getLikes() { return likes; }
+        @LinkingObjects("user")
+        private final RealmResults<Like> likes = null;
+        public RealmResults<Like> getLikes() { return likes; }
 
     // BOOKING
 

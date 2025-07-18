@@ -2,6 +2,7 @@ package barhop.app.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -31,7 +32,7 @@ import barhop.app.R;
 public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView barName, barAddress, barLikes;
-        ImageButton likeButton, editBarButton;
+        ImageButton likeButton;
 
         ImageView barPhoto;
 
@@ -65,6 +66,7 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        realm = Realm.getDefaultInstance();
         Bar bar = getItem(position);
         if (bar == null) return;
 
@@ -90,36 +92,38 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
                     .into(holder.barPhoto);
         }
 
-        int likes = realm
-                .where(Like.class)
-                .equalTo("barUUID", bar.getUuid())
+        int test = realm.where(Like.class)
+                .equalTo("bar.uuid", bar.getUuid())
+                .equalTo("user.uuid", userUUID)
                 .findAll()
                 .size();
 
-        Like like = realm
-                .where(Like.class)
-                .equalTo("userUUID", userUUID)
-                .equalTo("barUUID", bar.getUuid())
+        Like like = realm.where(Like.class)
+                .equalTo("bar.uuid", bar.getUuid())
+                .equalTo("user.uuid", userUUID)
                 .findFirst();
 
         holder.barName.setText(bar.getName());
         holder.barAddress.setText(bar.getLocation());
 
+        int likes = bar.getLikes().size();
         String barLikesText = likes + (likes == 1 ? " Like" : " Likes");
         holder.barLikes.setText(barLikesText);
 
-        if (bar.getUuid().equals(userUUID)) {
+        if (userUUID.isEmpty() || bar.getOwner().getUuid().equals(userUUID)) {
             holder.likeButton.setVisibility(View.GONE);
         } else {
+            User user = realm.where(User.class).equalTo("uuid", userUUID).findFirst();
+
             holder.likeButton.setImageResource(
-                    like == null ? R.drawable.ic_heart_line : R.drawable.ic_heart_fill
+                    test == 0 ? R.drawable.ic_heart_line : R.drawable.ic_heart_fill
             );
 
             holder.likeButton.setOnClickListener(v -> {
-                if (like == null) {
+                if (test == 0) {
                     Like newLike = new Like();
-                    newLike.setUser(userUUID);
-                    newLike.setBar(bar.getUuid());
+                    newLike.setUser(user);
+                    newLike.setBar(bar);
 
                     realm.beginTransaction();
                     realm.copyToRealmOrUpdate(newLike);

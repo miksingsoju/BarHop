@@ -30,6 +30,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BarHop"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.AddComment"
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -48,8 +51,7 @@
             android:exported="false" />
         <activity
             android:name=".activity.CommentActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".activity.UserRegistration"
             android:exported="false" />
