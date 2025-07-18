@@ -90,9 +90,6 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
                     .into(holder.barPhoto);
         }
 
-        Realm realm = Realm.getDefaultInstance();
-        User user = realm.where(User.class).equalTo("uuid", userUUID).findFirst();
-
         int likes = realm
                 .where(Like.class)
                 .equalTo("barUUID", bar.getUuid())
@@ -107,28 +104,34 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
 
         holder.barName.setText(bar.getName());
         holder.barAddress.setText(bar.getLocation());
-        holder.barLikes.setText(String.valueOf(likes) + " Likes");
-        holder.likeButton.setImageResource(
-                like == null ? R.drawable.ic_heart_line : R.drawable.ic_heart_fill
-        );
 
-        holder.likeButton.setOnClickListener(v -> {
-            if (like == null) {
-                Like newLike = new Like();
-                newLike.setUser(userUUID);
-                newLike.setBar(bar.getUuid());
+        String barLikesText = likes + (likes == 1 ? " Like" : " Likes");
+        holder.barLikes.setText(barLikesText);
 
-                realm.beginTransaction();
-                realm.copyToRealmOrUpdate(newLike);
-                realm.commitTransaction();
-            } else {
-                realm.beginTransaction();
-                like.deleteFromRealm();
-                realm.commitTransaction();
-            }
-            notifyDataSetChanged();
-        });
+        if (bar.getUuid().equals(userUUID)) {
+            holder.likeButton.setVisibility(View.GONE);
+        } else {
+            holder.likeButton.setImageResource(
+                    like == null ? R.drawable.ic_heart_line : R.drawable.ic_heart_fill
+            );
 
+            holder.likeButton.setOnClickListener(v -> {
+                if (like == null) {
+                    Like newLike = new Like();
+                    newLike.setUser(userUUID);
+                    newLike.setBar(bar.getUuid());
+
+                    realm.beginTransaction();
+                    realm.copyToRealmOrUpdate(newLike);
+                    realm.commitTransaction();
+                } else {
+                    realm.beginTransaction();
+                    like.deleteFromRealm();
+                    realm.commitTransaction();
+                }
+                notifyDataSetChanged();
+            });
+        }
     }
 
 }

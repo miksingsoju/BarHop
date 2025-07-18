@@ -34,12 +34,12 @@ public class BarDetail extends AppCompatActivity {
     }
     Realm realm;
     Bar bar;
-    Button editBarButton;
+    Button editBarButton, moreButton;
     CardView editContainer;
     TextView barName, barAddress, barDescription;
     SharedPreferences auth;
 
-    public void init(){
+    public void init() {
         realm = Realm.getDefaultInstance();
         auth = getSharedPreferences("auth", MODE_PRIVATE);
 
@@ -48,6 +48,7 @@ public class BarDetail extends AppCompatActivity {
         barDescription = findViewById(R.id.barDescription);
         editBarButton = findViewById(R.id.editBarButton1);
         editContainer = findViewById(R.id.editContainer);
+        moreButton = findViewById(R.id.moreButton);
 
         String barUUID = getIntent().getStringExtra("barUUID");
         bar = realm.where(Bar.class).equalTo("uuid",barUUID).findFirst();
@@ -56,8 +57,8 @@ public class BarDetail extends AppCompatActivity {
         barAddress.setText(bar.getLocation());
         barDescription.setText(bar.getDescription());
 
-        String userUuid = auth.getString("uuid", "");
-        if (userUuid.equals(bar.getOwner().getUuid())) {
+        String userUUID = auth.getString("uuid", "");
+        if (userUUID.equals(bar.getOwner().getUuid())) {
             editContainer.setVisibility(View.VISIBLE);
             editBarButton.setOnClickListener(v -> {
                 Intent intent = new Intent(this, EditBar.class);
@@ -65,5 +66,11 @@ public class BarDetail extends AppCompatActivity {
                 startActivity(intent);
             });
         }
+
+        moreButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, CommentActivity.class);
+            intent.putExtra("barUUID", bar.getUuid());
+            startActivity(intent);
+        });
     }
 }

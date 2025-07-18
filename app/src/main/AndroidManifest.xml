@@ -47,8 +47,9 @@
             android:name=".activity.ImageActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.BarList"
-            android:exported="false" />
+            android:name=".activity.CommentActivity"
+            android:exported="false">
+        </activity>
         <activity
             android:name=".activity.UserRegistration"
             android:exported="false" />
