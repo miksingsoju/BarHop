@@ -77,13 +77,6 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.nav_addbars) {
                 openAddBar();
                 return true;
-
-            } else if (itemId == R.id.nav_allUsers) {
-                openAllUsers();
-                return true;
-            } else if (itemId == R.id.nav_allAdmins) {
-                openAllAdmins();
-                return true;
             }
 
 
@@ -236,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
         String userUuid = auth.getString("uuid", "");
         User user = realm.where(User.class).equalTo("uuid", userUuid).findFirst();
         if (user != null) {
-            setProfileIcon(user);
+            //setProfileIcon(user);
         }
     }
 
@@ -290,22 +283,22 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void setProfileIcon(User user) {
-        String imagePath = user.getDisplayPicture();
-        if (imagePath != null && !imagePath.isEmpty()) {
-            File imageFile = new File(imagePath);
-            if (imageFile.exists()) {
-                Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-                Drawable drawable = new BitmapDrawable(getResources(), bitmap);
-                int size = getResources().getDimensionPixelSize(R.dimen.nav_icon_size);
-
-                Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, size, size, true);
-                Drawable scaledDrawable = new BitmapDrawable(getResources(), scaledBitmap);
-                bottomNav.getMenu().findItem(R.id.nav_profile).setIcon(scaledDrawable);
-
-            }
-        }
-    }
+//    private void setProfileIcon(User user) {
+//        String imagePath = user.getDisplayPicture();
+//        if (imagePath != null && !imagePath.isEmpty()) {
+//            File imageFile = new File(imagePath);
+//            if (imageFile.exists()) {
+//                Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+//                Drawable drawable = new BitmapDrawable(getResources(), bitmap);
+//                int size = getResources().getDimensionPixelSize(R.dimen.nav_icon_size);
+//
+//                Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, size, size, true);
+//                Drawable scaledDrawable = new BitmapDrawable(getResources(), scaledBitmap);
+//                bottomNav.getMenu().findItem(R.id.nav_profile).setIcon(scaledDrawable);
+//
+//            }
+//        }
+//    }
 
 
 
