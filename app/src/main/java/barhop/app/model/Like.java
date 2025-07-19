@@ -7,23 +7,18 @@ import io.realm.annotations.PrimaryKey;
 
 public class Like extends RealmObject {
     @PrimaryKey
-    private String userUUID;
-
-    private String barUUID;
-
+    private String uuid = UUID.randomUUID().toString();;
+    private User user;
+    private Bar bar;
     public Like() { }
 
-    public String getUser() {
-        return userUUID;
-    }
+    public String getUuid() { return uuid; }
 
-    public void setUser(String user){
-        this.userUUID = user;
-    }
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
 
-    public String getBar() {
-        return barUUID;
+    public Bar getBar() {
+        return bar;
     }
-
-    public void setBar(String bar) { this.barUUID = bar; }
+    public void setBar(Bar bar) { this.bar = bar; }
 }
