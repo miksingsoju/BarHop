@@ -75,8 +75,7 @@ public class CommentActivity extends AppCompatActivity {
             postsBottomBar.setVisibility(View.GONE);
         } else {
             addPostButton.setOnClickListener(v -> {
-                Intent intent = new Intent(this, CreateBar.class); // create comment
-                intent.putExtra("userUUID", userUUID);
+                Intent intent = new Intent(this, AddComment.class); // create comment
                 intent.putExtra("barUUID", barUUID);
                 startActivity(intent);
             });
