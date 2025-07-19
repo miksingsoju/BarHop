@@ -37,10 +37,7 @@
             android:name=".activity.EditUser"
             android:exported="false" />
         <activity
-            android:name=".activity.AllUsers"
-            android:exported="false" />
-        <activity
-            android:name=".activity.AllAdmins"
+            android:name=".activity.AdminPanel"
             android:exported="false" />
         <activity
             android:name=".activity.AddComment"

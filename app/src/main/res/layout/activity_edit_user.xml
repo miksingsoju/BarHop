@@ -8,32 +8,32 @@
     tools:context=".activity.EditUser">
 
     <Button
-        android:id="@+id/adminSaveEdits"
+        android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="32dp"
         android:text="Save"
-        app:layout_constraintEnd_toEndOf="@+id/adminConfirmPassword"
+        app:layout_constraintEnd_toEndOf="@+id/confirmPW"
         app:layout_constraintHorizontal_bias="0.45"
-        app:layout_constraintStart_toStartOf="@+id/adminConfirmPassword"
-        app:layout_constraintTop_toBottomOf="@+id/adminConfirmPassword" />
+        app:layout_constraintStart_toStartOf="@+id/confirmPW"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPW" />
 
     <Button
-        android:id="@+id/adminCancelEdits"
+        android:id="@+id/cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/adminSaveEdits"
+        app:layout_constraintEnd_toEndOf="@+id/save"
         app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintStart_toStartOf="@+id/adminSaveEdits"
-        app:layout_constraintTop_toBottomOf="@+id/adminSaveEdits"
+        app:layout_constraintStart_toStartOf="@+id/save"
+        app:layout_constraintTop_toBottomOf="@+id/save"
         app:layout_constraintVertical_bias="0.187" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/editAdminUn"
+        android:id="@+id/editName"
         android:layout_width="305dp"
         android:layout_height="57dp"
         android:hint="User name"
@@ -46,7 +46,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/adminEditPassword"
+        android:id="@+id/editPassword"
         android:layout_width="305dp"
         android:layout_height="57dp"
         android:hint="New Password"
@@ -59,7 +59,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/adminConfirmPassword"
+        android:id="@+id/confirmPW"
         android:layout_width="305dp"
         android:layout_height="57dp"
         android:hint="Confirm New Password"
@@ -92,10 +92,10 @@
         android:layout_marginBottom="20dp"
         android:text="Password"
         app:layout_constraintBottom_toTopOf="@+id/userInput"
-        app:layout_constraintEnd_toEndOf="@+id/editAdminUn"
+        app:layout_constraintEnd_toEndOf="@+id/editName"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editAdminUn"
-        app:layout_constraintTop_toBottomOf="@+id/editAdminUn" />
+        app:layout_constraintStart_toStartOf="@+id/editName"
+        app:layout_constraintTop_toBottomOf="@+id/editName" />
 
     <TextView
         android:id="@+id/adminConfirmEditPassword"
@@ -104,18 +104,17 @@
         android:layout_marginTop="24dp"
         android:layout_marginBottom="20dp"
         android:text="Confirm Password"
-        app:layout_constraintBottom_toTopOf="@+id/userInput"
-        app:layout_constraintEnd_toEndOf="@+id/adminEditPassword"
+        app:layout_constraintEnd_toEndOf="@+id/editPassword"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/adminEditPassword"
-        app:layout_constraintTop_toBottomOf="@+id/adminEditPassword" />
+        app:layout_constraintStart_toStartOf="@+id/editPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editPassword" />
 
     <TextView
         android:id="@+id/adminEditLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Edit Barhopper"
+        android:text="Edit User"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/adminEditPhoto"
@@ -132,7 +131,7 @@
         android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toTopOf="@+id/registerLabel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.546"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_launcher_background" />

@@ -5,12 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.AllUsers">
+    tools:context=".activity.AdminPanel">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/adminsList"
-        android:layout_width="344dp"
-        android:layout_height="508dp"
+        android:layout_width="333dp"
+        android:layout_height="544dp"
         android:layout_marginTop="28dp"
         app:layout_constraintEnd_toEndOf="@+id/userWelcomeLabel"
         app:layout_constraintHorizontal_bias="0.428"
@@ -22,9 +22,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
-        android:text="List of all Bar Hoppers !"
+        android:text="Admin Panel"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

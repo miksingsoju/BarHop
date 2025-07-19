@@ -13,13 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-
 import barhop.app.R;
-import java.io.File;
 
 
 import android.content.Intent;
@@ -274,14 +268,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openAllUsers() {
-        Intent intent = new Intent(this, AllUsers.class);
+        Intent intent = new Intent(this, AdminPanel.class);
         startActivity(intent);
     }
 
-    private void openAllAdmins() {
-        Intent intent = new Intent(this, AllAdmins.class);
-        startActivity(intent);
-    }
 
 //    private void setProfileIcon(User user) {
 //        String imagePath = user.getDisplayPicture();
