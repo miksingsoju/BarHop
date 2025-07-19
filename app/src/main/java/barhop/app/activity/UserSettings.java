@@ -100,8 +100,11 @@ public class UserSettings extends AppCompatActivity {
         String newPassword = userSettingsPasswordField.getText().toString();
 
         if (newName.isEmpty()) {
-            Toast.makeText(this, "Bar name must not be blank", Toast.LENGTH_LONG).show();
-            return;
+            newName = user.getDisplayName();
+        }
+
+        if (newPassword.isEmpty()) {
+            newPassword = user.getPassword();
         }
 
         try {
