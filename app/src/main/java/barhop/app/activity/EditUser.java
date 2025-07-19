@@ -1,22 +1,18 @@
 package barhop.app.activity;
 
-import android.os.Bundle;
-
-import android.widget.TextView;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Button;
-
 import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
-import android.content.SharedPreferences;
-import android.widget.Toast;
 
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
@@ -30,89 +26,56 @@ import barhop.app.R;
 import barhop.app.model.User;
 import io.realm.Realm;
 
-public class UserSettings extends AppCompatActivity {
-
-    TextView userSettingsLabel, userSettingsPicLabel, userSettingsConfirmLabel;
-    EditText userSettingsDisplayName, userSettingsPasswordField;
-    ImageView userSettingsImage , userEditButton;
-    Button userSettingsReturnButton;
-
-    Realm realm;
-    SharedPreferences auth;
-    User user;
-
+public class EditUser extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_user_settings);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.parentConstraint), (v, insets) -> {
+        setContentView(R.layout.activity_edit_user);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        initViews();
+        init();
     }
+    Button save, cancel;
+    ImageView adminEditPhoto;
 
-    public void initViews(){
+    EditText editName, editPassword, confirmPW;
+    User user;
+    Realm realm;
+    public void init(){
         realm = Realm.getDefaultInstance();
-        auth = getSharedPreferences("auth",MODE_PRIVATE);
-        String userUUID = auth.getString("uuid","");
-        user = realm.where(User.class).equalTo("uuid",userUUID).findFirst();
+        String userUuid = getIntent().getStringExtra("uuid");
+        user = realm.where(User.class).equalTo("uuid", userUuid).findFirst();
 
-        userSettingsConfirmLabel = findViewById(R.id.userSettingsConfirmLabel);
-        userSettingsPicLabel = findViewById(R.id.userSettingsPicLabel);
-        userSettingsLabel = findViewById(R.id.userSettingsLabel);
-        userSettingsDisplayName = findViewById(R.id.userSettingsDisplayName);
-        userSettingsPasswordField = findViewById(R.id.userSettingsPasswordField);
+        save = findViewById(R.id.save);
+        adminEditPhoto = findViewById(R.id.adminEditPhoto);
+        editName = findViewById(R.id.editName);
+        editPassword = findViewById(R.id.editPassword);
+        confirmPW = findViewById(R.id.confirmPW);
+        cancel = findViewById(R.id.cancel);
 
-        userSettingsImage = findViewById(R.id.userSettingsImage);
+        editName.setHint(user.getDisplayName());
+        editPassword.setHint(user.getPassword());
 
-        userSettingsReturnButton = findViewById(R.id.userSettingsReturnButton);
-        userEditButton = findViewById(R.id.userEditButton);
+        save.setOnClickListener(view -> save());
+        cancel.setOnClickListener(view -> cancel());
+        adminEditPhoto.setOnClickListener(view -> takePhoto());
 
-        userSettingsImage.setOnClickListener(v -> takePhoto());
-        userSettingsReturnButton.setOnClickListener(v -> ReturnHome());
-        userEditButton.setOnClickListener(v -> EditCreds());
-
-        File imageFile = new File(getExternalCacheDir(), user.getUuid() + ".jpeg");
-        if (imageFile.exists()) {
+        File cacheDir = this.getExternalCacheDir();
+        File photo = new File(cacheDir, user.getUuid()+".jpeg");
+        if (photo.exists())
+        {
+            // this will put the image saved to the file system to the imageview
             Picasso.get()
-                    .load(imageFile)
+                    .load(photo)
                     .networkPolicy(NetworkPolicy.NO_CACHE)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
-                    .into(userSettingsImage);
+                    .into(adminEditPhoto);
         }
-
-
-    }
-
-    public void ReturnHome() {
-        finish();
-    }
-
-    public void EditCreds() {
-        String newName = userSettingsDisplayName.getText().toString();
-        String newPassword = userSettingsPasswordField.getText().toString();
-
-        if (newName.isEmpty()) {
-            Toast.makeText(this, "Bar name must not be blank", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        try {
-            realm.beginTransaction();
-            user.setDisplayName(newName);
-            user.setPassword(newPassword);
-            realm.commitTransaction();
-
-            Toast.makeText(this, "Editing " + user.getDisplayName() + " was edited successfully." , Toast.LENGTH_LONG).show();
-
-        } catch (Exception e) {
-            Toast.makeText(this, "Error changing profile details", Toast.LENGTH_LONG).show();
-        }
-
     }
 
     public static int REQUEST_CODE_IMAGE_SCREEN = 0;
@@ -141,7 +104,7 @@ public class UserSettings extends AppCompatActivity {
                     File savedImage = saveFile(jpeg, user.getUuid()+".jpeg");  // WHERE TO SAVE
 
                     // load file to the image view via picasso
-                    refreshImageView(userSettingsImage, savedImage);
+                    refreshImageView(adminEditPhoto, savedImage);
                 }
                 catch(Exception e)
                 {
@@ -172,11 +135,47 @@ public class UserSettings extends AppCompatActivity {
                 .load(savedImage)
                 .networkPolicy(NetworkPolicy.NO_CACHE)
                 .memoryPolicy(MemoryPolicy.NO_CACHE)
-                .into(imageView);
+                .into(adminEditPhoto);
     }
 
+    public void cancel(){
+        finish();
+    }
 
+    public void save() {
+        String name = editName.getText().toString().trim();
+        String password = editPassword.getText().toString();
+        String confirmPassword = confirmPW.getText().toString();
 
+        User existingUser = realm.where(User.class).equalTo("displayName", name).findFirst();
+        if (existingUser != null) {
+            Toast.makeText(this, "Username is already taken.", Toast.LENGTH_LONG).show();
+            return;
+        }
 
+        if (!password.equals(confirmPassword)) {
+            Toast.makeText(this, "Confirm password does not match.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        try {
+            realm.beginTransaction();
+             // Update existing user
+                if (!name.isEmpty()){
+                    user.setDisplayName(name);
+                }
+                if (!password.isEmpty()){
+                    user.setPassword(password);
+                }
+            realm.commitTransaction();
+
+            Toast t = Toast.makeText(this, "User saved", Toast.LENGTH_LONG);
+            t.show();
+            finish();
+        } catch (Exception e) {
+            if (realm.isInTransaction()) realm.cancelTransaction();
+            Toast.makeText(this, "Error saving user", Toast.LENGTH_LONG).show();
+        }
+    }
 
 }

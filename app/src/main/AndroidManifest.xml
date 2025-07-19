@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
+    <!-- NEW: application permissions -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- NEEDED TO ACCESS CAMERA and GALLERY FOR ANDROID 11+ -->
+    <!-- https://stackoverflow.com/questions/62535856/intent-resolveactivity-returns-null-in-api-30/64204646#64204646 -->
+    <queries>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.GET_CONTENT" />
+        </intent>
+    </queries>
 
     <application
         android:name=".BarHop"
@@ -12,18 +29,40 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BarHop"
-        tools:targetApi="31" >
+        tools:targetApi="31">
         <activity
-            android:name=".activity.BarList"
+            android:name=".activity.EditUser"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AdminPanel"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AddComment"
+            android:exported="false" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="@string/fileAuthority"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <!-- there must be a res/xml/file_provider_path.xml or this will fail -->
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_path" />
+        </provider>
+
+        <activity
+            android:name=".activity.ImageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.CommentActivity"
             android:exported="false" />
         <activity
             android:name=".activity.UserRegistration"
             android:exported="false" />
         <activity
             android:name=".activity.AdminRegistration"
-            android:exported="false" />
-        <activity
-            android:name=".activity.Registration"
             android:exported="false" />
         <activity
             android:name=".activity.Login"
@@ -45,7 +84,7 @@
             android:exported="false" />
         <activity
             android:name=".activity.MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

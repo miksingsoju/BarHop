@@ -30,7 +30,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.rememberCheckBox), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.parentConstraint), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -38,7 +38,7 @@ public class Login extends AppCompatActivity {
         init();
     }
 
-    Button adminRegisterButton, userRegisterButton, loginButton;
+    Button adminRegisterButton, userRegisterButton, loginButton, userSecret, adminSecret;
     EditText userInput, passwordInput;
 
     Realm realm;
@@ -57,11 +57,13 @@ public class Login extends AppCompatActivity {
         adminRegisterButton = findViewById(R.id.adminRegisterButton);
         userRegisterButton = findViewById(R.id.userRegisterButton);
         loginButton = findViewById(R.id.loginButton);
+        userSecret = findViewById(R.id.userSecret);
 
         userInput = findViewById(R.id.userInput);
         passwordInput = findViewById(R.id.passwordInput);
-        rememberCheckBox = findViewById(R.id.rememberCheckBox);
+        rememberCheckBox = findViewById(R.id.parentConstraint);
 
+        userSecret.setOnClickListener(v -> AdminPanel());
         adminRegisterButton.setOnClickListener(view -> register("ADMIN"));
         userRegisterButton.setOnClickListener(view -> register("USER"));
         loginButton.setOnClickListener(view -> login());
@@ -146,5 +148,11 @@ public class Login extends AppCompatActivity {
             Intent intent = new Intent(this, AdminRegistration.class);
             startActivity(intent);
         }
+    }
+
+    public void AdminPanel() {
+        Intent intent = new Intent(this, AdminPanel.class);
+        startActivity(intent);
+
     }
 }

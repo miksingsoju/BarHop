@@ -18,7 +18,6 @@ public class User extends RealmObject {
         @PrimaryKey
         private String uuid = UUID.randomUUID().toString();
         private String displayName, password, displayPicture;
-        private Date birthDate;
         private Boolean isAdmin;
         public User() {}
 
@@ -30,8 +29,6 @@ public class User extends RealmObject {
         public void setPassword(String password){ this.password = password; }
         public String getDisplayPicture(){return displayPicture;}
         public void setDisplayPicture(String displayPicture){ this.displayPicture = displayPicture;}
-        public Date getBirthDate(){return birthDate;}
-        public void setBirthDate(Date birthDate){this.birthDate = birthDate;}
         public Boolean isAdmin(){return isAdmin;}
         public void setAdmin(Boolean isAdmin){this.isAdmin = isAdmin;}
 
@@ -42,21 +39,15 @@ public class User extends RealmObject {
         private final RealmResults<Bar> barsOwned = null;
         public RealmResults<Bar> getBarsOwned() {return barsOwned;}
 
-    // FAVOURITE BARS
-        private RealmList<Bar> favoriteBars  = new RealmList<>();
-        public RealmList<Bar> getFavoriteBars() { return favoriteBars;}
-        public void addToFavourites(Bar bar) { favoriteBars.add(bar);}
-        public void removeFromFavourites(Bar bar) { favoriteBars.remove(bar);}
-
     // COMMENT
         @LinkingObjects("commenter")
         private final RealmResults<Comment> comments = null;
         public RealmResults<Comment> getComments() { return comments;}
 
     // LIKE
-//        @LinkingObjects("user")
-//        private final RealmResults<Like> likes = null;
-//        public RealmResults<Like> getLikes() { return likes; }
+        @LinkingObjects("user")
+        private final RealmResults<Like> likes = null;
+        public RealmResults<Like> getLikes() { return likes; }
 
     // BOOKING
 

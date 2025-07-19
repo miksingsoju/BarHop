@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rememberCheckBox"
+    android:id="@+id/parentConstraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.UserSettings">
@@ -25,11 +25,12 @@
         android:layout_width="185dp"
         android:layout_height="176dp"
         android:layout_marginTop="44dp"
+        android:icon="@drawable/ic_profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.136"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userSettingsLabel"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:srcCompat="@drawable/ic_profile" />
 
     <EditText
         android:id="@+id/userSettingsDisplayName"
@@ -70,27 +71,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userSettingsReturnButton" />
 
-    <ImageView
-        android:id="@+id/userSettingsEditNameButton"
-        android:layout_width="31dp"
-        android:layout_height="27dp"
-        app:layout_constraintBottom_toBottomOf="@+id/userSettingsDisplayName"
+    <TextView
+        android:id="@+id/userSettingsPicLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="104dp"
+        android:text="Update Profile Picture"
+        android:textAlignment="center"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintStart_toEndOf="@+id/userSettingsImage"
+        app:layout_constraintTop_toBottomOf="@+id/userSettingsReturnButton" />
+
+    <TextView
+        android:id="@+id/userSettingsConfirmLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Confirm all changes"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/userEditButton"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/userSettingsDisplayName"
-        app:layout_constraintTop_toBottomOf="@+id/userSettingsImage"
-        app:layout_constraintVertical_bias="0.509"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
+        app:layout_constraintStart_toStartOf="@+id/userEditButton"
+        app:layout_constraintTop_toBottomOf="@+id/userEditButton" />
 
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="31dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="43dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/userEditButton"
+        android:layout_width="52dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/userSettingsPasswordField"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/userSettingsPasswordField"
-        app:layout_constraintTop_toBottomOf="@+id/userSettingsEditNameButton"
+        app:layout_constraintStart_toStartOf="@+id/userSettingsPasswordField"
+        app:layout_constraintTop_toBottomOf="@+id/userSettingsPasswordField"
+        app:layout_constraintVertical_bias="0.091"
         app:srcCompat="@android:drawable/ic_menu_edit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

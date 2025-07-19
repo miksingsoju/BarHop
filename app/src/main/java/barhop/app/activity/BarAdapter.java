@@ -2,15 +2,23 @@ package barhop.app.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 
 import barhop.app.model.Bar;
 import barhop.app.model.User;
@@ -24,15 +32,17 @@ import barhop.app.R;
 public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView barName, barAddress, barLikes;
-        ImageButton likeButton, editBarButton;
+        ImageButton likeButton;
+
+        ImageView barPhoto;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             barName = itemView.findViewById(R.id.barName);
             barAddress = itemView.findViewById(R.id.barAddress);
-            editBarButton = itemView.findViewById(R.id.editBarButton);
             barLikes = itemView.findViewById(R.id.barLikes);
             likeButton = itemView.findViewById(R.id.likeButton);
+            barPhoto = itemView.findViewById(R.id.barPhoto);
         }
     }
     Activity activity;
@@ -56,6 +66,7 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        realm = Realm.getDefaultInstance();
         Bar bar = getItem(position);
         if (bar == null) return;
 
@@ -63,65 +74,68 @@ public class BarAdapter extends RealmRecyclerViewAdapter<Bar, BarAdapter.ViewHol
         holder.barAddress.setText(bar.getLocation());
 
         holder.itemView.setOnClickListener(v -> {
-            Toast.makeText(activity, "Clicked: " + bar.getName(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(activity, BarDetail.class);
             intent.putExtra("barUUID", bar.getUuid());
             activity.startActivity(intent);
         });
 
-        Realm realm = Realm.getDefaultInstance();
-        User user = realm.where(User.class).equalTo("uuid", userUUID).findFirst();
+        // if you have more add here
+        File cacheDir = activity.getExternalCacheDir();
+        File photo = new File(cacheDir, bar.getUuid()+".jpeg");
+        if (photo.exists())
+        {
+            // this will put the image saved to the file system to the imageview
+            Picasso.get()
+                    .load(photo)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .into(holder.barPhoto);
+        }
 
-        int likes = realm
-                .where(Like.class)
-                .equalTo("barUUID", bar.getUuid())
+        int test = realm.where(Like.class)
+                .equalTo("bar.uuid", bar.getUuid())
+                .equalTo("user.uuid", userUUID)
                 .findAll()
                 .size();
 
-        Like like = realm
-                .where(Like.class)
-                .equalTo("userUUID", userUUID)
-                .equalTo("barUUID", bar.getUuid())
+        Like like = realm.where(Like.class)
+                .equalTo("bar.uuid", bar.getUuid())
+                .equalTo("user.uuid", userUUID)
                 .findFirst();
 
         holder.barName.setText(bar.getName());
         holder.barAddress.setText(bar.getLocation());
-        holder.barLikes.setText(String.valueOf(likes));
-        holder.likeButton.setImageResource(
-                like == null ? R.drawable.ic_heart_line : R.drawable.ic_heart_fill
-        );
 
-        holder.likeButton.setOnClickListener(v -> {
-            if (like == null) {
-                Like newLike = new Like();
-                newLike.setUser(userUUID);
-                newLike.setBar(bar.getUuid());
+        int likes = bar.getLikes().size();
+        String barLikesText = likes + (likes == 1 ? " Like" : " Likes");
+        holder.barLikes.setText(barLikesText);
 
-                realm.beginTransaction();
-                realm.copyToRealmOrUpdate(newLike);
-                realm.commitTransaction();
-            } else {
-                realm.beginTransaction();
-                like.deleteFromRealm();
-                realm.commitTransaction();
-            }
-            notifyDataSetChanged();
-        });
+        if (userUUID.isEmpty() || bar.getOwner().getUuid().equals(userUUID)) {
+            holder.likeButton.setVisibility(View.GONE);
+        } else {
+            User user = realm.where(User.class).equalTo("uuid", userUUID).findFirst();
 
-        boolean isOwner = bar.getOwner().equals(user);
+            holder.likeButton.setImageResource(
+                    test == 0 ? R.drawable.ic_heart_line : R.drawable.ic_heart_fill
+            );
 
-        if(isOwner){
-            holder.editBarButton.setVisibility(View.VISIBLE);
-        }else {
-            holder.editBarButton.setVisibility(View.GONE);
+            holder.likeButton.setOnClickListener(v -> {
+                if (test == 0) {
+                    Like newLike = new Like();
+                    newLike.setUser(user);
+                    newLike.setBar(bar);
+
+                    realm.beginTransaction();
+                    realm.copyToRealmOrUpdate(newLike);
+                    realm.commitTransaction();
+                } else {
+                    realm.beginTransaction();
+                    like.deleteFromRealm();
+                    realm.commitTransaction();
+                }
+                notifyDataSetChanged();
+            });
         }
-
-        holder.editBarButton.setOnClickListener(view -> {
-            Toast.makeText(activity, "Clicked: " + bar.getName(), Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(activity, EditBar.class);
-            intent.putExtra("barUUID", bar.getUuid());
-            activity.startActivity(intent);
-        });
     }
 
 }

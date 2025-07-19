@@ -1,8 +1,6 @@
 package barhop.app.activity;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,18 +11,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import barhop.app.R;
-
-import barhop.app.model.Bar;
+import barhop.app.model.User;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class BarList extends AppCompatActivity {
+public class AdminPanel extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_bar_list);
+        setContentView(R.layout.activity_all_users);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -32,37 +29,24 @@ public class BarList extends AppCompatActivity {
         });
         initBarList();
     }
-
     RecyclerView recyclerView;
-
-    TextView barName;
-
     Realm realm;
-
-    SharedPreferences auth;
 
     public void initBarList()
     {
-        recyclerView = findViewById(R.id.recyclerView);
-        barName = findViewById(R.id.barName);
+        realm = Realm.getDefaultInstance();
+        recyclerView = findViewById(R.id.adminsList);
 
         // initialize RecyclerView
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(mLayoutManager);
 
-        // initialize Realm
-        realm = Realm.getDefaultInstance();
-        auth = getSharedPreferences("auth", MODE_PRIVATE);
-
-        String userUuid = auth.getString("uuid","");
-
         // query the things to display
-        RealmResults<Bar> list = realm.where(Bar.class).findAll();
+        RealmResults<User> list = realm.where(User.class).findAll();
 
         // initialize Adapter
-        BarAdapter adapter = new BarAdapter(this,  userUuid, list, true);
+        UserAdapter adapter = new UserAdapter(this, list, true);
         recyclerView.setAdapter(adapter);
     }
-
 }
