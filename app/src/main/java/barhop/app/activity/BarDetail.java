@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +36,7 @@ public class BarDetail extends AppCompatActivity {
     Realm realm;
     Bar bar;
     Button editBarButton, moreButton;
+    ImageButton imageButton;
     CardView editContainer;
     TextView barName, barAddress, barDescription;
     SharedPreferences auth;
@@ -49,6 +51,9 @@ public class BarDetail extends AppCompatActivity {
         editBarButton = findViewById(R.id.editBarButton1);
         editContainer = findViewById(R.id.editContainer);
         moreButton = findViewById(R.id.moreButton);
+        imageButton = findViewById(R.id.imageButton);
+
+        imageButton.setOnClickListener(v -> goBack());
 
         String barUUID = getIntent().getStringExtra("barUUID");
         bar = realm.where(Bar.class).equalTo("uuid",barUUID).findFirst();
@@ -72,5 +77,12 @@ public class BarDetail extends AppCompatActivity {
             intent.putExtra("barUUID", bar.getUuid());
             startActivity(intent);
         });
+    }
+
+    public void goBack(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+
+
     }
 }
