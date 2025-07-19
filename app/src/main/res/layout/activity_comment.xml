@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:fitsSystemWindows="false"
-        app:layout_constraintBottom_toTopOf="@+id/postsBottomBar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="-2dp"
                 android:layout_marginEnd="-2dp"
-                android:layout_marginBottom="-2dp"
+                android:layout_marginBottom="80dp"
                 android:nestedScrollingEnabled="false"
                 app:cardBackgroundColor="@android:color/background_dark"
                 app:cardElevation="0dp"
