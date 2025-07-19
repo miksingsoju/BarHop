@@ -64,12 +64,12 @@ public class FavoriteBars extends AppCompatActivity {
         String userUuid = auth.getString("uuid","");
         user = realm.where(User.class).equalTo("uuid", userUuid).findFirst();
 
-        RealmResults<Like>  likes = realm.where(Like.class).equalTo("userUUID",userUuid).findAll();
+        RealmResults<Like>  likes = user.getLikes();
 
         // 3. Extract barUUIDs
         String[] barUUIDs = new String[likes.size()];
         for (int i = 0; i < likes.size(); i++) {
-            barUUIDs[i] = likes.get(i).getBar(); // getBar() returns barUUID
+            barUUIDs[i] = likes.get(i).getBar().getUuid(); // getBar() returns barUUID
         }
 
         // 4. Query Bars with matching UUIDs (this returns RealmResults<Bar> ✅)
