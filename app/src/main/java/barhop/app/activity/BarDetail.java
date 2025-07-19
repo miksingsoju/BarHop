@@ -15,6 +15,9 @@ import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
@@ -24,7 +27,10 @@ import java.io.File;
 
 import barhop.app.R;
 import barhop.app.model.Bar;
+import barhop.app.model.Comment;
 import io.realm.Realm;
+import io.realm.RealmResults;
+import io.realm.Sort;
 
 public class BarDetail extends AppCompatActivity {
 
@@ -39,6 +45,7 @@ public class BarDetail extends AppCompatActivity {
             return insets;
         });
         init();
+        initCommentGrid();
     }
     Realm realm;
     Bar bar;
@@ -47,9 +54,11 @@ public class BarDetail extends AppCompatActivity {
     ImageButton backButton;
     CardView editContainer;
     TextView barName, barAddress, barDescription;
+    RecyclerView recyclerView;
+    ImageView barImage;
+
     SharedPreferences auth;
 
-    ImageView barImage;
 
     public void init() {
         realm = Realm.getDefaultInstance();
@@ -102,5 +111,25 @@ public class BarDetail extends AppCompatActivity {
         backButton.setOnClickListener(view -> {
             finish();
         });
+    }
+
+    public void initCommentGrid() {
+        recyclerView = findViewById(R.id.commentsGrid);
+
+        GridLayoutManager mLayoutManager = new GridLayoutManager(this, 3);
+        mLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setLayoutManager(mLayoutManager);
+
+        // query the things to display
+        RealmResults<Comment> list = realm
+                .where(Comment.class)
+                .equalTo("bar.uuid", bar.getUuid())
+                .sort("timestamp", Sort.DESCENDING)
+                .limit(9)
+                .findAll();
+
+        // initialize Adapter
+        CommentGrid adapter = new CommentGrid(this, bar.getUuid(), list, true);
+        recyclerView.setAdapter(adapter);
     }
 }
