@@ -74,6 +74,32 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3"
         app:layout_constraintVertical_bias="0.296" />
 
+    <Button
+        android:id="@+id/userSecret"
+        android:layout_width="75dp"
+        android:layout_height="53dp"
+        android:text="user secret"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/parentConstraint"
+        app:layout_constraintTop_toBottomOf="@+id/passwordInput"
+        app:layout_constraintVertical_bias="0.08" />
+
+    <Button
+        android:id="@+id/adminSecret"
+        android:layout_width="89dp"
+        android:layout_height="39dp"
+        android:text="admin secret"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/loginButton"
+        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/parentConstraint"
+        app:layout_constraintVertical_bias="0.106" />
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"

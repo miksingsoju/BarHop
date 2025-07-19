@@ -38,7 +38,7 @@ public class Login extends AppCompatActivity {
         init();
     }
 
-    Button adminRegisterButton, userRegisterButton, loginButton;
+    Button adminRegisterButton, userRegisterButton, loginButton, userSecret, adminSecret;
     EditText userInput, passwordInput;
 
     Realm realm;
@@ -57,11 +57,15 @@ public class Login extends AppCompatActivity {
         adminRegisterButton = findViewById(R.id.adminRegisterButton);
         userRegisterButton = findViewById(R.id.userRegisterButton);
         loginButton = findViewById(R.id.loginButton);
+        userSecret = findViewById(R.id.userSecret);
+        adminSecret = findViewById(R.id.adminSecret);
 
         userInput = findViewById(R.id.userInput);
         passwordInput = findViewById(R.id.passwordInput);
         rememberCheckBox = findViewById(R.id.parentConstraint);
 
+        userSecret.setOnClickListener(v -> UserSecret());
+        adminSecret.setOnClickListener(v-> AdminSecret());
         adminRegisterButton.setOnClickListener(view -> register("ADMIN"));
         userRegisterButton.setOnClickListener(view -> register("USER"));
         loginButton.setOnClickListener(view -> login());
@@ -146,5 +150,16 @@ public class Login extends AppCompatActivity {
             Intent intent = new Intent(this, AdminRegistration.class);
             startActivity(intent);
         }
+    }
+
+    public void UserSecret() {
+        Intent intent = new Intent(this, AllUsers.class);
+        startActivity(intent);
+
+    }
+
+    public void AdminSecret() {
+        Intent intent = new Intent(this, AllAdmins.class);
+        startActivity(intent);
     }
 }
