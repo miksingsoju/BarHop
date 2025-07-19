@@ -89,9 +89,6 @@ public class UserSettings extends AppCompatActivity {
     }
 
     public void ReturnHome() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
         finish();
     }
 
@@ -118,40 +115,51 @@ public class UserSettings extends AppCompatActivity {
 
     }
 
-    public static final int REQUEST_CODE_IMAGE_SCREEN = 0;
-    public void takePhoto() {
+    public static int REQUEST_CODE_IMAGE_SCREEN = 0;
+
+    public void takePhoto()
+    {
         Intent i = new Intent(this, ImageActivity.class);
         startActivityForResult(i, REQUEST_CODE_IMAGE_SCREEN);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    // SINCE WE USE startForResult(), code will trigger this once the next screen calls finish()
+    public void onActivityResult(int requestCode, int responseCode, Intent data)
+    {
+        super.onActivityResult(requestCode, responseCode, data);
 
-        if (requestCode == REQUEST_CODE_IMAGE_SCREEN) {
-            if (resultCode == ImageActivity.RESULT_CODE_IMAGE_TAKEN) {
+        if (requestCode==REQUEST_CODE_IMAGE_SCREEN)
+        {
+            if (responseCode==ImageActivity.RESULT_CODE_IMAGE_TAKEN)
+            {
+                // receieve the raw JPEG data from ImageActivity
+                // this can be saved to a file or save elsewhere like Realm or online
                 byte[] jpeg = data.getByteArrayExtra("rawJpeg");
 
                 try {
-                    File savedImage = saveFile(jpeg, user.getUuid() + ".jpeg");
+                    // save rawImage to file
+                    File savedImage = saveFile(jpeg, user.getUuid()+".jpeg");  // WHERE TO SAVE
 
-                    // Save path in Realm
-                    realm.beginTransaction();
-                    user.setDisplayPicture(savedImage.getAbsolutePath());
-                    realm.commitTransaction();
-
+                    // load file to the image view via picasso
                     refreshImageView(userSettingsImage, savedImage);
-
-                } catch (Exception e) {
+                }
+                catch(Exception e)
+                {
                     e.printStackTrace();
                 }
             }
         }
     }
 
-    private File saveFile(byte[] jpeg, String filename) throws IOException {
+    private File saveFile(byte[] jpeg, String filename) throws IOException
+    {
+        // this is the root directory for the images
         File getImageDir = getExternalCacheDir();
+
+        // just a sample, normally you have a diff image name each time
         File savedImage = new File(getImageDir, filename);
+
+
         FileOutputStream fos = new FileOutputStream(savedImage);
         fos.write(jpeg);
         fos.close();
@@ -159,6 +167,7 @@ public class UserSettings extends AppCompatActivity {
     }
 
     private void refreshImageView(ImageView imageView, File savedImage) {
+        // this will put the image saved to the file system to the imageview
         Picasso.get()
                 .load(savedImage)
                 .networkPolicy(NetworkPolicy.NO_CACHE)
