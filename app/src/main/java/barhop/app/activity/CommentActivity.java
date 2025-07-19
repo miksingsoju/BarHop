@@ -89,6 +89,12 @@ public class CommentActivity extends AppCompatActivity {
 
         if (userUUID.isEmpty() || userUUID.equals(bar.getOwner().getUuid())) {
             postsBottomBar.setVisibility(View.GONE);
+        } else {
+            addPostButton.setOnClickListener(v -> {
+                Intent intent = new Intent(this, AddComment.class); // create comment
+                intent.putExtra("barUUID", barUUID);
+                startActivity(intent);
+            });
         }
         commentsBackButton.setOnClickListener(v -> finish());
         addPostButton.setOnClickListener(v -> addPostButtonHandler());

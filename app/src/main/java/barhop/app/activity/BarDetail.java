@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -13,6 +15,12 @@ import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 
 import barhop.app.R;
 import barhop.app.model.Bar;
@@ -35,9 +43,13 @@ public class BarDetail extends AppCompatActivity {
     Realm realm;
     Bar bar;
     Button editBarButton, moreButton;
+
+    ImageButton backButton;
     CardView editContainer;
     TextView barName, barAddress, barDescription;
     SharedPreferences auth;
+
+    ImageView barImage;
 
     public void init() {
         realm = Realm.getDefaultInstance();
@@ -49,6 +61,8 @@ public class BarDetail extends AppCompatActivity {
         editBarButton = findViewById(R.id.editBarButton1);
         editContainer = findViewById(R.id.editContainer);
         moreButton = findViewById(R.id.moreButton);
+        barImage = findViewById(R.id.barImage);
+        backButton = findViewById(R.id.backButton);
 
         String barUUID = getIntent().getStringExtra("barUUID");
         bar = realm.where(Bar.class).equalTo("uuid",barUUID).findFirst();
@@ -56,6 +70,18 @@ public class BarDetail extends AppCompatActivity {
         barName.setText(bar.getName());
         barAddress.setText(bar.getLocation());
         barDescription.setText(bar.getDescription());
+
+        File cacheDir = this.getExternalCacheDir();
+        File barPhoto = new File(cacheDir, bar.getUuid()+".jpeg");
+        if (barPhoto.exists())
+        {
+            // this will put the image saved to the file system to the imageview
+            Picasso.get()
+                    .load(barPhoto)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .into(barImage);
+        }
 
         String userUUID = auth.getString("uuid", "");
         if (userUUID.equals(bar.getOwner().getUuid())) {
@@ -71,6 +97,10 @@ public class BarDetail extends AppCompatActivity {
             Intent intent = new Intent(this, CommentActivity.class);
             intent.putExtra("barUUID", bar.getUuid());
             startActivity(intent);
+        });
+
+        backButton.setOnClickListener(view -> {
+            finish();
         });
     }
 }

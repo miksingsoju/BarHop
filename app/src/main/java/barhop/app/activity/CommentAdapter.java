@@ -13,7 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import barhop.app.model.Bar;
 import barhop.app.model.Comment;
@@ -25,14 +31,14 @@ import io.realm.RealmRecyclerViewAdapter;
 import barhop.app.R;
 
 public class CommentAdapter extends RealmRecyclerViewAdapter<Comment, CommentAdapter.ViewHolder> {
+
     TextView postUser, postUsername, postCaption, postUploadDate;
-    ImageView postImage, userPfp;
-
-    Comment comment;
-
-    Activity activity;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
+        ImageView postImage, userPfp;
+
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             postUser = itemView.findViewById(R.id.postUser);
@@ -42,6 +48,9 @@ public class CommentAdapter extends RealmRecyclerViewAdapter<Comment, CommentAda
             postUploadDate = itemView.findViewById(R.id.postUploadDate);
         }
     }
+    Comment comment;
+    Activity activity;
+
 
     public CommentAdapter(Activity activity, @Nullable OrderedRealmCollection<Comment> data, boolean autoUpdate) {
         super(data, autoUpdate);
@@ -64,7 +73,19 @@ public class CommentAdapter extends RealmRecyclerViewAdapter<Comment, CommentAda
         postUsername.setText(comment.getCommenter().getDisplayName());
         postCaption.setText(comment.getText());
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd mon yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault());
         postUploadDate.setText(formatter.format(comment.getTimestamp()));
+
+        File cacheDir = activity.getExternalCacheDir();
+        File commentPhoto = new File(cacheDir, comment.getUuid()+".jpeg");
+        if (commentPhoto.exists())
+        {
+            // this will put the image saved to the file system to the imageview
+            Picasso.get()
+                    .load(commentPhoto)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .into(holder.postImage);
+        }
     }
 }
