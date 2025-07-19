@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentConstraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/parentConstraint">
+    android:background="@android:color/background_dark">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,6 +52,105 @@
         app:layout_constraintTop_toBottomOf="@+id/postsHeader"
         app:layout_constraintVertical_bias="1.0" />
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/mediaBottomSheet"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:fitsSystemWindows="false"
+        app:layout_constraintBottom_toTopOf="@+id/postsBottomBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mediaDrawerContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mediaDrawer"
+                style="@style/BottomDrawerStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-2dp"
+                android:layout_marginEnd="-2dp"
+                android:layout_marginBottom="-2dp"
+                android:nestedScrollingEnabled="false"
+                app:cardBackgroundColor="@android:color/background_dark"
+                app:cardElevation="0dp"
+                app:contentPaddingLeft="24dp"
+                app:contentPaddingRight="24dp"
+                app:contentPaddingTop="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:strokeColor="@color/cardBorderColour"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/cameraButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/background_dark"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:paddingStart="48dp"
+                        android:text="Camera"
+                        android:textAlignment="viewStart"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/cameraIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="2dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/cameraButton"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/cameraButton"
+                        app:srcCompat="@drawable/round_camera_alt_24"
+                        app:tint="@color/white" />
+
+                    <Button
+                        android:id="@+id/galleryButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/background_dark"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:paddingStart="48dp"
+                        android:text="Gallery"
+                        android:textAlignment="viewStart"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cameraButton" />
+
+                    <ImageView
+                        android:id="@+id/picIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="2dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/galleryButton"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/galleryButton"
+                        app:srcCompat="@drawable/picture"
+                        app:tint="@color/white" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/postsBottomBar"
         android:layout_width="0dp"
@@ -58,6 +158,7 @@
         android:visibility="visible"
         app:cardBackgroundColor="@android:color/background_dark"
         app:contentPadding="24dp"
+        app:contentPaddingTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -79,11 +180,11 @@
         android:layout_height="0dp"
         android:adjustViewBounds="false"
         android:background="#00FFFFFF"
-        app:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/postsHeader"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/arrow_left" />
+        app:srcCompat="@drawable/arrow_left"
+        app:tint="@color/white" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/noTweetsContainer"
