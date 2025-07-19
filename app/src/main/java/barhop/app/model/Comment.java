@@ -17,9 +17,9 @@ public class Comment extends RealmObject {
 
     private Date timestamp;
 
-    public String getUuid() {return uuid;}
-    public String getPhoto(){return photo;}
-    public void setPhoto(String photo){this.photo = photo; }
+    public String getUuid() { return uuid;}
+    public String getPhoto(){ return photo;}
+    public void setPhoto(String photo){ this.photo = photo; }
     public String getText(){return text;}
     public void setText(String text){ this.text = text;}
 

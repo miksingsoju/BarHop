@@ -83,8 +83,8 @@
 
         <TextView
             android:id="@+id/postUsername"
-            android:layout_width="70dp"
-            android:layout_height="13dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:fontFamily="@font/poppins_medium"
             android:text="Username"

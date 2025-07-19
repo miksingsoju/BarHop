@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -262,6 +263,7 @@ public class ImageActivity extends AppCompatActivity
         if (getImageDir != null) {
             outputFileUri = createUriFromFile(new  File(getImageDir.getPath(), "pickImageResult.jpeg"), true);
         }
+        Log.d("uri-test1", outputFileUri.toString());
         return outputFileUri;
     }
 
@@ -277,6 +279,8 @@ public class ImageActivity extends AppCompatActivity
             String action = data.getAction();
             isCamera = action != null  && action.equals(MediaStore.ACTION_IMAGE_CAPTURE);
         }
+
+        Log.d("uri-test2", data.getData().toString());
         return isCamera ?  getCaptureImageOutputUri() : data.getData();
     }
 
