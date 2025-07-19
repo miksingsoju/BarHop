@@ -31,9 +31,6 @@
         android:theme="@style/Theme.BarHop"
         tools:targetApi="31">
         <activity
-            android:name=".activity.CommentGrid"
-            android:exported="false" />
-        <activity
             android:name=".activity.EditUser"
             android:exported="false" />
         <activity
