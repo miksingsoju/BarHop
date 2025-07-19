@@ -31,10 +31,10 @@
         android:theme="@style/Theme.BarHop"
         tools:targetApi="31">
         <activity
-            android:name=".activity.CommentGrid"
+            android:name=".activity.EditUser"
             android:exported="false" />
         <activity
-            android:name=".activity.CreateComment"
+            android:name=".activity.AdminPanel"
             android:exported="false" />
         <activity
             android:name=".activity.AddComment"

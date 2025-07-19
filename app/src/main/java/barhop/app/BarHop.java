@@ -11,5 +11,6 @@ public class BarHop extends Application {
         super.onCreate();
 
         Realm.init(this);
+
     }
 }

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import barhop.app.R;
 
+
 import android.content.Intent;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         setContentView(R.layout.activity_main);
-        bottomNav = findViewById(R.id.bottomNavigationView); // assign to class variable
+        bottomNav = findViewById(R.id.bottomNavigationView);
 
         bottomNav.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -71,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
                 openAddBar();
                 return true;
             }
+
+
             return false;
 
         });
@@ -127,11 +130,8 @@ public class MainActivity extends AppCompatActivity {
     // Button loginButton, createBarButton, favoriteBarsButton, barListButton;
     TextView mainText;
     BottomNavigationView bottomNav;
-
     SharedPreferences auth;
-
     RecyclerView recyclerView;
-
     TextView barName;
 
     /**
@@ -140,25 +140,15 @@ public class MainActivity extends AppCompatActivity {
     public void init(){
         realm = Realm.getDefaultInstance();
         auth = getSharedPreferences("auth", MODE_PRIVATE);
-
-        //loginButton = findViewById(R.id.loginButton);
-        //createBarButton = findViewById(R.id.createBarButton);
-        //favoriteBarsButton = findViewById(R.id.favouriteBarsButton);
-        //barListButton = findViewById(R.id.barListButton);
-
         mainText = findViewById(R.id.mainText);
 
-        //loginButton.setOnClickListener(view -> login());
-        //favoriteBarsButton.setOnClickListener(view -> favoriteBars());
-        //createBarButton.setOnClickListener(view -> createBar());
-        //barListButton.setOnClickListener(view -> barList());
         initBarList();
         initLoggedOut(); // THIS MANAGES VISIBILITY
     }
 
     public void initBarList()
     {
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.adminsList);
         barName = findViewById(R.id.barName);
 
         // initialize RecyclerView
@@ -179,36 +169,15 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This takes you to the login screen, the login screen also has buttons that lead to register screens.
      */
-    private void login(){
-        Intent intent = new Intent(this, Login.class);
-        startActivity(intent);
-    }
-
-
-
-    private void favoriteBars(){
-        //Intent intent = new Intent(this, FavoriteBars.class);
-        //startActivity(intent);
-    }
-
-    private void createBar(){
-        Intent intent = new Intent(this, CreateBar.class);
-        startActivity(intent);
-    }
 
 
     private void isUserLoggedIn() {
         String userUuid = auth.getString("uuid", null);
 
         if (userUuid != null) {
-            // Fetch user from Realm using UUID
             User user = realm.where(User.class).equalTo("uuid", userUuid).findFirst();
-
             if (user != null) {
                 mainText.setText("Welcome, " + user.getDisplayName() + "!");
-                //loginButton.setText("User Settings"); // change appearance of login button
-                //loginButton.setOnClickListener(view -> userSettings());
-
                 if(user.isAdmin()){
                     initAdminView();
                 } else {
@@ -248,14 +217,15 @@ public class MainActivity extends AppCompatActivity {
      */
 
     private void initUserView(){
-        //createBarButton.setVisibility(View.GONE);
-        //favoriteBarsButton.setVisibility(View.VISIBLE);
 
         bottomNav.getMenu().clear();
         bottomNav.inflateMenu(R.menu.bottom_nav_user);
-
+        String userUuid = auth.getString("uuid", "");
+        User user = realm.where(User.class).equalTo("uuid", userUuid).findFirst();
+        if (user != null) {
+            //setProfileIcon(user);
+        }
     }
-
 
     // Nav Bar Buttons Edit
 
@@ -296,6 +266,29 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, FavoriteBars.class);
         startActivity(intent);
     }
+
+    private void openAllUsers() {
+        Intent intent = new Intent(this, AdminPanel.class);
+        startActivity(intent);
+    }
+
+
+//    private void setProfileIcon(User user) {
+//        String imagePath = user.getDisplayPicture();
+//        if (imagePath != null && !imagePath.isEmpty()) {
+//            File imageFile = new File(imagePath);
+//            if (imageFile.exists()) {
+//                Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+//                Drawable drawable = new BitmapDrawable(getResources(), bitmap);
+//                int size = getResources().getDimensionPixelSize(R.dimen.nav_icon_size);
+//
+//                Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, size, size, true);
+//                Drawable scaledDrawable = new BitmapDrawable(getResources(), scaledBitmap);
+//                bottomNav.getMenu().findItem(R.id.nav_profile).setIcon(scaledDrawable);
+//
+//            }
+//        }
+//    }
 
 
 

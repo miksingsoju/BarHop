@@ -42,6 +42,8 @@ public class CommentAdapter extends RealmRecyclerViewAdapter<Comment, CommentAda
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             postUser = itemView.findViewById(R.id.postUser);
+            userPfp = itemView.findViewById(R.id.userPfp);
+
             postUsername = itemView.findViewById(R.id.postUsername);
             postCaption = itemView.findViewById(R.id.postCaption);
             postImage = itemView.findViewById(R.id.postImage);
@@ -86,6 +88,17 @@ public class CommentAdapter extends RealmRecyclerViewAdapter<Comment, CommentAda
                     .networkPolicy(NetworkPolicy.NO_CACHE)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .into(holder.postImage);
+        }
+
+        File userPhoto = new File(cacheDir, comment.getCommenter().getUuid()+".jpeg");
+        if (userPhoto.exists())
+        {
+            // this will put the image saved to the file system to the imageview
+            Picasso.get()
+                    .load(userPhoto)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .into(holder.userPfp);
         }
     }
 }
