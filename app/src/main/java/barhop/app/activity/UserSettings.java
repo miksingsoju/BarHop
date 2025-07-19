@@ -111,7 +111,7 @@ public class UserSettings extends AppCompatActivity {
             realm.commitTransaction();
 
             Toast.makeText(this, "Editing " + user.getDisplayName() + " was edited successfully." , Toast.LENGTH_LONG).show();
-            
+
         } catch (Exception e) {
             Toast.makeText(this, "Error changing profile details", Toast.LENGTH_LONG).show();
         }

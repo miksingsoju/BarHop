@@ -13,11 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import barhop.app.R;
 
-import barhop.app.model.Bar;
 import barhop.app.model.User;
 import io.realm.Realm;
-import io.realm.RealmList;
-import io.realm.RealmResults;
 
 public class FavoriteBars extends AppCompatActivity {
 
@@ -44,7 +41,7 @@ public class FavoriteBars extends AppCompatActivity {
 
     public void init()
     {
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.adminsList);
         nameView = findViewById(R.id.barName);
 
         // initialize RecyclerView
